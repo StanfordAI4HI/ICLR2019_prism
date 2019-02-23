@@ -59,6 +59,8 @@ should reproduce those shown in `scripts/eval_inria_background.sh`. Running on o
 the other evaluation scripts in `/scripts`. Note that evaluation may be slow since the logs are very large and contain
 the history of the entire Gibbs sampler.
 
+(4) You can also run evaluation for the baselines in a similar way by running the scripts called `baselines_<dataset>_[run | eval].sh`.
+
 
 #### Using Prism with your data
 
