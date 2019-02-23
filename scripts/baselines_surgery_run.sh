@@ -1,130 +1,120 @@
 #!/usr/bin/env bash
 
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1001 0 --data_config '38-3-1-10-20-3' --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/gmm/ --k_model -1 &
-#done
+# Run baselines on JIGSAWS surgical dataset
 
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1001 1 --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/hmm-det/ --k_model -1 &
-#done
-#
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1001 2 --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/hmm-stoch/ --k_model -1 &
-#done
-#
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1001 3 --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/hmm-vstoch/ --k_model -1 &
-#done
+# Usage
+# > ./baselines_surgery_run.sh 10 0
+# which runs inference with baselines for 10 random seeds, with values 1,...,10
 
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1001 4 --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/hsmm/ --k_model -1 &
-#done
+# Path to where the logs are
+gmm_log="/next/u/kgoel/bayesian-activity/logs/gmm/surgery/"
+hmm_det_log="/next/u/kgoel/bayesian-activity/logs/hmm_det/surgery/"
+hmm_stoch_log="/next/u/kgoel/bayesian-activity/logs/hmm_stoch/surgery/"
+hmm_vstoch_log="/next/u/kgoel/bayesian-activity/logs/hmm_vstoch/surgery/"
+
+# Path to where the dataset is
+dataset="/next/u/kgoel/bayesian-activity/datasets/surgery_dataset/"
 
 
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1010 0 --data_config '38-3-1-10-20-3' --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/gmm/ --k_model -1 &
-#done
-#
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1010 1 --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/hmm-det/ --k_model -1 &
-#done
-#
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1010 2 --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/hmm-stoch/ --k_model -1 &
-#done
-#
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1010 3 --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/hmm-vstoch/ --k_model -1 &
-#done
+# Run on suturing with 10 expert demonstrations with 5 each from 2 experts
+for ((i=1; i<=$1; i++)); do
+   seed=$(($2+$i))
+   OMP_NUM_THREADS=1 python baselines.py train 1001 0 $dataset --data_config '38-3-1-10-20-3' --seed $seed \
+   --log $gmm_log --k_model -1 &
+done
+
+for ((i=1; i<=$1; i++)); do
+   seed=$(($2+$i))
+   OMP_NUM_THREADS=1 python baselines.py train 1001 1 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   --log $hmm_det_log --k_model -1 &
+done
+
+for ((i=1; i<=$1; i++)); do
+   seed=$(($2+$i))
+   OMP_NUM_THREADS=1 python baselines.py train 1001 2 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   --log $hmm_stoch_log --k_model -1 &
+done
+
+for ((i=1; i<=$1; i++)); do
+   seed=$(($2+$i))
+   OMP_NUM_THREADS=1 python baselines.py train 1001 3 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   --log $hmm_vstoch_log --k_model -1 &
+done
 
 
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1100 0 --data_config '38-3-1-10-20-3' --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/gmm/ --k_model -1 &
-#done
-#
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1100 1 --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/hmm-det/ --k_model -1 &
-#done
-#
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1100 2 --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/hmm-stoch/ --k_model -1 &
-#done
-#
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1100 3 --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/hmm-vstoch/ --k_model -1 &
-#done
+# Run on needle passing with 10 expert demonstrations with 5 each from 2 experts
+for ((i=1; i<=$1; i++)); do
+   seed=$(($2+$i))
+   OMP_NUM_THREADS=1 python baselines.py train 1010 0 $dataset --data_config '38-3-1-10-20-3' --seed $seed \
+   --log $gmm_log --k_model -1 &
+done
 
-#
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1001 0 --data_config '38-3-1-10-15-3' --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/gmm/ --k_model -1 &
-#done
-#
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1001 1 --data_config '38-3-1-10-15-3' --n_iters 2000 --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/hmm-det/ --k_model -1 &
-#done
-#
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1001 2 --data_config '38-3-1-10-15-3' --n_iters 2000 --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/hmm-stoch/ --k_model -1 &
-#done
-#
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1001 3 --data_config '38-3-1-10-15-3' --n_iters 2000 --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/hmm-vstoch/ --k_model -1 &
-#done
-#
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1001 0 --data_config '38-3-1-15-20-3' --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/gmm/ --k_model -1 &
-#done
-#
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1001 1 --data_config '38-3-1-15-20-3' --n_iters 2000 --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/hmm-det/ --k_model -1 &
-#done
-#
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1001 2 --data_config '38-3-1-15-20-3' --n_iters 2000 --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/hmm-stoch/ --k_model -1 &
-#done
-#
-#for ((i=1; i<=$1; i++)); do
-#   seed=$(($2+$i))
-#   OMP_NUM_THREADS=1 python baselines.py train 1001 3 --data_config '38-3-1-15-20-3' --n_iters 2000 --seed $seed \
-#   --log /next/u/kgoel/bayesian-activity/logs/hmm-vstoch/ --k_model -1 &
-#done
+for ((i=1; i<=$1; i++)); do
+   seed=$(($2+$i))
+   OMP_NUM_THREADS=1 python baselines.py train 1010 1 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   --log $hmm_det_log --k_model -1 &
+done
+
+for ((i=1; i<=$1; i++)); do
+   seed=$(($2+$i))
+   OMP_NUM_THREADS=1 python baselines.py train 1010 2 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   --log $hmm_stoch_log --k_model -1 &
+done
+
+for ((i=1; i<=$1; i++)); do
+   seed=$(($2+$i))
+   OMP_NUM_THREADS=1 python baselines.py train 1010 3 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   --log $hmm_vstoch_log --k_model -1 &
+done
+
+
+# Run on knot tying with 10 expert demonstrations with 5 each from 2 experts
+for ((i=1; i<=$1; i++)); do
+   seed=$(($2+$i))
+   OMP_NUM_THREADS=1 python baselines.py train 1100 0 $dataset --data_config '38-3-1-10-20-3' --seed $seed \
+   --log $gmm_log --k_model -1 &
+done
+
+for ((i=1; i<=$1; i++)); do
+   seed=$(($2+$i))
+   OMP_NUM_THREADS=1 python baselines.py train 1100 1 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   --log $hmm_det_log --k_model -1 &
+done
+
+for ((i=1; i<=$1; i++)); do
+   seed=$(($2+$i))
+   OMP_NUM_THREADS=1 python baselines.py train 1100 2 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   --log $hmm_stoch_log --k_model -1 &
+done
+
+for ((i=1; i<=$1; i++)); do
+   seed=$(($2+$i))
+   OMP_NUM_THREADS=1 python baselines.py train 1100 3 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   --log $hmm_vstoch_log --k_model -1 &
+done
+
+
+# Run on suturing with 5 expert demonstrations from the same expert
+for ((i=1; i<=$1; i++)); do
+   seed=$(($2+$i))
+   OMP_NUM_THREADS=1 python baselines.py train 1001 0 $dataset --data_config '38-3-1-15-20-3' --seed $seed \
+   --log $gmm_log --k_model -1 &
+done
+
+for ((i=1; i<=$1; i++)); do
+   seed=$(($2+$i))
+   OMP_NUM_THREADS=1 python baselines.py train 1001 1 $dataset --data_config '38-3-1-15-20-3' --n_iters 2000 --seed $seed \
+   --log $hmm_det_log --k_model -1 &
+done
+
+for ((i=1; i<=$1; i++)); do
+   seed=$(($2+$i))
+   OMP_NUM_THREADS=1 python baselines.py train 1001 2 $dataset --data_config '38-3-1-15-20-3' --n_iters 2000 --seed $seed \
+   --log $hmm_stoch_log --k_model -1 &
+done
+
+for ((i=1; i<=$1; i++)); do
+   seed=$(($2+$i))
+   OMP_NUM_THREADS=1 python baselines.py train 1001 3 $dataset --data_config '38-3-1-15-20-3' --n_iters 2000 --seed $seed \
+   --log $hmm_vstoch_log --k_model -1 &
+done

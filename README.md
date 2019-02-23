@@ -38,6 +38,10 @@ Then untar and move the label data so that all of them can be accessed inside
 `---- breakfast/segmentation_coarse/`  
 `---- breakfast/segmentation_fine/`. 
  
+- _JIGSAWS surgical and Bees [datasets](https://drive.google.com/drive/folders/1wq-08JPDBhWm7og4Ip-khY3L1l3WpauV?usp=sharing)_
+ 
+
+Please cite the datasets appropriately.
 
 (2) Download the [logs](https://drive.google.com/drive/folders/1rVlEopUpWVmtbmX_9rpXQLM-QjaI2YJ2?usp=sharing),
 and unzip them at a suitable location. Note that the logs are quite large (~10 GB total).
@@ -75,5 +79,6 @@ Add a script to `scripts/` to evaluate Prism. Examples on how to evaluate Prism 
 
 Word of caution: The logs can grow to be very large since they are storing the history of the entire Gibbs sampler so you should have
 plenty of disk space. You  will need to edit `gibbs.py` to change this behavior (make sure to also edit the evaluation functions in this case).
+
 
 Please contact Karan Goel ``kgoel <at> cs <dot> stanford <dot> edu`` for questions!

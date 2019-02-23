@@ -137,6 +137,7 @@ if __name__ == '__main__':
     argparse.add_argument('mode', choices=['train', 'evaluate'], type=str)
     argparse.add_argument('dataset', type=int)
     argparse.add_argument('method', type=int)
+    argparse.add_argument('dataset_path', type=str)
 
     argparse.add_argument('--data_config', type=str, default='')
     argparse.add_argument('--eval_config', type=str, default='')
