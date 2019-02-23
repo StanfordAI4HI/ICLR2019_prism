@@ -16,25 +16,25 @@ dataset="/next/u/kgoel/bayesian-activity/datasets/surgery_dataset/"
 # Run on suturing with 10 expert demonstrations with 5 each from 2 experts
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
-   OMP_NUM_THREADS=1 python baselines.py train 1001 0 $dataset --data_config '38-3-1-10-20-3' --seed $seed \
+   OMP_NUM_THREADS=1 python ../baselines.py train 1001 0 $dataset --data_config '38-3-1-10-20-3' --seed $seed \
    --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
-   OMP_NUM_THREADS=1 python baselines.py train 1001 1 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   OMP_NUM_THREADS=1 python ../baselines.py train 1001 1 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
    --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
-   OMP_NUM_THREADS=1 python baselines.py train 1001 2 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   OMP_NUM_THREADS=1 python ../baselines.py train 1001 2 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
    --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
-   OMP_NUM_THREADS=1 python baselines.py train 1001 3 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   OMP_NUM_THREADS=1 python ../baselines.py train 1001 3 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
    --log $log --k_model -1 &
 done
 
@@ -42,25 +42,25 @@ done
 # Run on needle passing with 10 expert demonstrations with 5 each from 2 experts
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
-   OMP_NUM_THREADS=1 python baselines.py train 1010 0 $dataset --data_config '38-3-1-10-20-3' --seed $seed \
+   OMP_NUM_THREADS=1 python ../baselines.py train 1010 0 $dataset --data_config '38-3-1-10-20-3' --seed $seed \
    --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
-   OMP_NUM_THREADS=1 python baselines.py train 1010 1 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   OMP_NUM_THREADS=1 python ../baselines.py train 1010 1 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
    --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
-   OMP_NUM_THREADS=1 python baselines.py train 1010 2 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   OMP_NUM_THREADS=1 python ../baselines.py train 1010 2 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
    --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
-   OMP_NUM_THREADS=1 python baselines.py train 1010 3 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   OMP_NUM_THREADS=1 python ../baselines.py train 1010 3 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
    --log $log --k_model -1 &
 done
 
@@ -68,25 +68,25 @@ done
 # Run on knot tying with 10 expert demonstrations with 5 each from 2 experts
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
-   OMP_NUM_THREADS=1 python baselines.py train 1100 0 $dataset --data_config '38-3-1-10-20-3' --seed $seed \
+   OMP_NUM_THREADS=1 python ../baselines.py train 1100 0 $dataset --data_config '38-3-1-10-20-3' --seed $seed \
    --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
-   OMP_NUM_THREADS=1 python baselines.py train 1100 1 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   OMP_NUM_THREADS=1 python ../baselines.py train 1100 1 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
    --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
-   OMP_NUM_THREADS=1 python baselines.py train 1100 2 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   OMP_NUM_THREADS=1 python ../baselines.py train 1100 2 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
    --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
-   OMP_NUM_THREADS=1 python baselines.py train 1100 3 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
+   OMP_NUM_THREADS=1 python ../baselines.py train 1100 3 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
    --log $log --k_model -1 &
 done
 
@@ -94,24 +94,24 @@ done
 # Run on suturing with 5 expert demonstrations from the same expert
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
-   OMP_NUM_THREADS=1 python baselines.py train 1001 0 $dataset --data_config '38-3-1-15-20-3' --seed $seed \
+   OMP_NUM_THREADS=1 python ../baselines.py train 1001 0 $dataset --data_config '38-3-1-15-20-3' --seed $seed \
    --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
-   OMP_NUM_THREADS=1 python baselines.py train 1001 1 $dataset --data_config '38-3-1-15-20-3' --n_iters 2000 --seed $seed \
+   OMP_NUM_THREADS=1 python ../baselines.py train 1001 1 $dataset --data_config '38-3-1-15-20-3' --n_iters 2000 --seed $seed \
    --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
-   OMP_NUM_THREADS=1 python baselines.py train 1001 2 $dataset --data_config '38-3-1-15-20-3' --n_iters 2000 --seed $seed \
+   OMP_NUM_THREADS=1 python ../baselines.py train 1001 2 $dataset --data_config '38-3-1-15-20-3' --n_iters 2000 --seed $seed \
    --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
-   OMP_NUM_THREADS=1 python baselines.py train 1001 3 $dataset --data_config '38-3-1-15-20-3' --n_iters 2000 --seed $seed \
+   OMP_NUM_THREADS=1 python ../baselines.py train 1001 3 $dataset --data_config '38-3-1-15-20-3' --n_iters 2000 --seed $seed \
    --log $log --k_model -1 &
 done
