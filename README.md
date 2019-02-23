@@ -39,9 +39,8 @@ Then untar and move the label data so that all of them can be accessed inside
 `---- breakfast/segmentation_fine/`. 
  
 
-(2) Download the logs from,
-
-and unzip them at a suitable location. Note that the logs are quite large (~3-5 GB each).
+(2) Download the [logs](https://drive.google.com/drive/folders/1rVlEopUpWVmtbmX_9rpXQLM-QjaI2YJ2?usp=sharing),
+and unzip them at a suitable location. Note that the logs are quite large (~10 GB total).
 
 (3) As an example, to run evaluation for Prism on the INRIA dataset with background frames, run
   

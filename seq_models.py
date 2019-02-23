@@ -19,28 +19,6 @@ def inference(time_series, model, **kwargs):
     for _ in tqdm(range(kwargs['n_iters'])):
         lls.append(update(model))
 
-    # if kwargs['method'] in ['hmm']:
-    #         lls = model.EM_fit()
-
-    # Plot the model
-    #     plt.figure()
-    #     model.plot()
-    #     plt.show()
-    #     plt.close()
-
-    # Plot the log-likelihoods
-    # plt.figure()
-    # plt.plot(np.arange(len(lls)), lls, color='blue', label="test")
-    # plt.xlabel("iteration")
-    # plt.ylabel("training likelihood")
-    # plt.legend(loc="lower right")
-    # plt.show()
-    # plt.close()
-
-    # print (model.trans_distn.trans_matrix)
-    # print (model.init_state_distn.pi_0)
-    # print ([(o.mu, o.sigma) for o in model.obs_distns])
-
     # Take samples from the posterior
     clustering_by_time_series = []
     for _ in tqdm(range(kwargs['n_evals'])):

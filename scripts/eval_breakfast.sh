@@ -63,6 +63,25 @@ OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '9-0-5-1'
 # ./eval_surgery.sh 10 0
 # should be
 
+
+# Cereals
+# Average performance for d_8_0-0-5-1__p_ind__a_tied-across_0__seed_10__km_5__sm_20__gamma_1.00__delta_0.10__gmm_0 (across all specified seeds).
+# NMI: 0.10
+# Munkres: 0.36
+# RSS: 0.29
+# LASS: 0.89
+# SSS: 0.84
+# TSS: 0.43
+
+# Coffee
+# Average performance for d_8_1-0-5-1__p_ind__a_tied-across_0__seed_10__km_7__sm_20__gamma_1.00__delta_0.10__gmm_0 (across all specified seeds).
+# NMI: 0.14
+# Munkres: 0.30
+# RSS: 0.31
+# LASS: 0.89
+# SSS: 0.84
+# TSS: 0.45
+
 # Fried Egg
 # Average performance for d_8_2-0-5-1__p_ind__a_tied-across_0__seed_10__km_9__sm_20__gamma_1.00__delta_0.10__gmm_0 (across all specified seeds).
 # NMI: 0.17
@@ -80,6 +99,15 @@ OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '9-0-5-1'
 # LASS: 0.91
 # SSS: 0.86
 # TSS: 0.57
+
+# Milk
+# Average performance for d_8_4-0-5-1__p_ind__a_tied-across_0__seed_10__km_5__sm_20__gamma_1.00__delta_0.10__gmm_0 (across all specified seeds).
+# NMI: 0.16
+# Munkres: 0.40
+# RSS: 0.33
+# LASS: 0.91
+# SSS: 0.86
+# TSS: 0.47
 
 # Pancakes
 # Average performance for d_8_5-0-5-1__p_ind__a_tied-across_0__seed_10__km_14__sm_20__gamma_1.00__delta_0.10__gmm_0 (across all specified seeds).
