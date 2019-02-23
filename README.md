@@ -49,7 +49,8 @@ and unzip them at a suitable location. Note that the logs are quite large (~3-5 
 ``> ./eval_inria_background.sh 10 0``
 
 after editing `scripts/eval_inria_background.sh` to update the location of the log and dataset paths. Your output
-should reproduce those shown in `scripts/eval_inria_background.sh`. Running on other datasets is exactly identical.
+should reproduce those shown in `scripts/eval_inria_background.sh`. Running on other datasets is exactly identical using 
+the other evaluation scripts in `/scripts`.
 
 
 
