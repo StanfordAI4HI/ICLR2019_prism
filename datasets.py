@@ -511,7 +511,7 @@ def load_dataset(**kwargs):
 
     # Bees dataset
     elif dataset in [7, 71, 72, 73, 74, 75, 76]:
-        x_data, z_data = load_bees_dataset()
+        x_data, z_data = load_bees_dataset(path)
         if dataset != 7:
             x_data = [x_data[int(str(dataset)[1]) - 1]]
             z_data = [z_data[int(str(dataset)[1]) - 1]]
@@ -563,7 +563,7 @@ def load_dataset(**kwargs):
                     'n': [1, 2, 3, 4, 5, 6, 8, 11],
                     's': [1, 2, 3, 4, 5, 6, 8, 9, 10, 11]}
 
-        x_data, z_data, meta_data = load_surgery_dataset(task_type, feature_type)
+        x_data, z_data, meta_data = load_surgery_dataset(task_type, feature_type, path=path)
 
         # For kinematic features we only keep the Slave left and Slave right features (38-76)
         if feature_type == 'k':
@@ -665,7 +665,7 @@ def load_dataset(**kwargs):
     # task-type - feature_type - camera_type - coarse_seg
     elif dataset == 8:
         feature_type = ['f', 'hog'][int(data_config[1])]
-        x_data, z_data, meta_data = load_breakfast_dataset(data_config[0], feature_type, int(eval_config[0]), int(data_config[2]))
+        x_data, z_data, meta_data = load_breakfast_dataset(data_config[0], feature_type, int(eval_config[0]), int(data_config[2]), path=path)
 
         # Sort all the sequences in descending order of lengths
         x_data, z_data, meta_data = zip(*sorted(zip(x_data, z_data, meta_data), key=lambda e: len(e[0]), reverse=True))
@@ -698,9 +698,9 @@ def load_dataset(**kwargs):
     # Load the INRIA dataset
     elif dataset in [9, 91]:
         if dataset == 9:
-            x_data, z_data, meta_data = load_inria_dataset(data_config[0])
+            x_data, z_data, meta_data = load_inria_dataset(data_config[0], path=path)
         elif dataset == 91:
-            x_data, z_data, meta_data = load_inria_dataset(data_config[0], True)
+            x_data, z_data, meta_data = load_inria_dataset(data_config[0], True, path=path)
 
         # First reduce the number of components per time-step using PCA (this is okay)
         pca = PCA(n_components=64)
