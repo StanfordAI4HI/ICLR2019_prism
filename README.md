@@ -20,11 +20,11 @@ scripts. The steps to do this are,
 
 (1) Download the datasets, 
 
-_INRIA Instructional videos [dataset](https://www.di.ens.fr/willow/research/instructionvideos/release/VISION_data.zip)_
+- _INRIA Instructional videos [dataset](https://www.di.ens.fr/willow/research/instructionvideos/release/VISION_data.zip)_
   
 Unzip ``VISION_data.zip`` and pass in the dataset path as ``<path_before>/VISION/``
    
-_Breakfast Actions video [dataset](https://uni-bonn.sciebo.de/s/lqj3GNVQWXaX1WC/download), 
+- _Breakfast Actions video [dataset](https://uni-bonn.sciebo.de/s/lqj3GNVQWXaX1WC/download), 
 [coarse segmentations](https://uni-bonn.sciebo.de/s/NsYSceejoCmrlTL/download), 
 [fine segmentations](https://uni-bonn.sciebo.de/s/I5hJN7ka53PqlC0/download)_
   
