@@ -33,9 +33,10 @@ First untar the dataset, and move the `s1` folder inside `breakfast/fisher/`.
 Then move the label data that all of them can be accessed inside 
 `breakfast/`. The directory structure should look like,
  
-`breakfast/fisher/s1`
-`breakfast/segmentation_coarse`
-`breakfast/segmentation_fine`. 
+`breakfast/`  
+`---- breakfast/fisher/s1`  
+`---- breakfast/segmentation_coarse`  
+`---- breakfast/segmentation_fine`. 
  
 
 (2) Download the logs from,
