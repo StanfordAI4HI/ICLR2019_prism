@@ -23,15 +23,15 @@ done
 
 for ((j=71; j<=76; j++)); do
    OMP_NUM_THREADS=1 python ../baselines.py evaluate $j 1 $dataset --n_iters 2000 --seed $seed --num_seeds $1 \
-   --log $log --k_model -1
+   --log $log --k_model -1 &
 done
 
 for ((j=71; j<=76; j++)); do
    OMP_NUM_THREADS=1 python ../baselines.py evaluate $j 2 $dataset --n_iters 2000 --seed $seed --num_seeds $1 \
-   --log $log --k_model -1
+   --log $log --k_model -1 &
 done
 
 for ((j=71; j<=76; j++)); do
    OMP_NUM_THREADS=1 python ../baselines.py evaluate $j 3 $dataset --n_iters 2000 --seed $seed --num_seeds $1 \
-   --log $log --k_model -1
+   --log $log --k_model -1 &
 done
