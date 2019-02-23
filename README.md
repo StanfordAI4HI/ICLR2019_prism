@@ -20,12 +20,14 @@ scripts. The steps to do this are,
 
 (1) Download the datasets, 
 
-INRIA Instructional videos [dataset](https://www.di.ens.fr/willow/research/instructionvideos/release/VISION_data.zip)  
+_INRIA Instructional videos [dataset](https://www.di.ens.fr/willow/research/instructionvideos/release/VISION_data.zip)_
+  
 Unzip ``VISION_data.zip`` and pass in the dataset path as ``<path_before>/VISION/``
    
-Breakfast Actions video [dataset](https://uni-bonn.sciebo.de/s/lqj3GNVQWXaX1WC/download), 
+_Breakfast Actions video [dataset](https://uni-bonn.sciebo.de/s/lqj3GNVQWXaX1WC/download), 
 [coarse segmentations](https://uni-bonn.sciebo.de/s/NsYSceejoCmrlTL/download), 
-[fine segmentations](https://uni-bonn.sciebo.de/s/I5hJN7ka53PqlC0/download)  
+[fine segmentations](https://uni-bonn.sciebo.de/s/I5hJN7ka53PqlC0/download)_
+  
 Create a folder for the dataset (e.g. `breakfast`). Inside `breakfast` create a folder called `fisher`. 
 First untar the dataset, and move the `s1` folder inside `breakfast/fisher/`. 
 Then move the label data that all of them can be accessed inside 
