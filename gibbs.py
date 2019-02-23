@@ -403,7 +403,7 @@ def run_gibbs(**kwargs):
 def evaluation(**kwargs):
     base_seed = kwargs['seed']
     num_seeds = kwargs['num_seeds']
-    seeds_mean_nmi, seeds_mean_score = [], [], [], []
+    seeds_mean_nmi, seeds_mean_score = [], []
     seeds_mean_munkres, seeds_mean_rss, seeds_mean_sss, seeds_mean_lass = [], [], [], []
     for seed in tqdm(range(base_seed, base_seed + num_seeds)):
         kwargs['seed'] = seed
