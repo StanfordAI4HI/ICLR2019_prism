@@ -30,22 +30,24 @@ Unzip ``VISION_data.zip`` and pass in the dataset path as ``<path_before>/VISION
   
 Create a folder for the dataset (e.g. `breakfast`). Inside `breakfast` create a folder called `fisher`. 
 First untar the dataset, and move the `s1` folder inside `breakfast/fisher/`. 
-Then move the label data that all of them can be accessed inside 
+Then untar and move the label data so that all of them can be accessed inside 
 `breakfast/`. The directory structure should look like,
  
 `breakfast/`  
-`---- breakfast/fisher/s1`  
-`---- breakfast/segmentation_coarse`  
-`---- breakfast/segmentation_fine`. 
+`---- breakfast/fisher/s1/`  
+`---- breakfast/segmentation_coarse/`  
+`---- breakfast/segmentation_fine/`. 
  
 
 (2) Download the logs from,
 
 and unzip them at a suitable location. Note that the logs are quite large (~3-5 GB each).
 
-(3) As an example, to run evaluation for Prism on the INRIA dataset with background frames, run  
+(3) As an example, to run evaluation for Prism on the INRIA dataset with background frames, run
+  
 ``> cd scripts``  
 ``> ./eval_inria_background.sh 10 0``
+
 after editing `scripts/eval_inria_background.sh` to update the location of the log and dataset paths. Your output
 should reproduce those shown in `scripts/eval_inria_background.sh`. Running on other datasets is exactly identical.
 
