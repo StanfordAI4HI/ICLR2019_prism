@@ -24,37 +24,37 @@ OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '0-0-5-1'
 OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '1-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
 --log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
 
-## Fried Egg, 173 sequences
-#OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '2-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
-#--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
-#
-## Juice, 162 sequences
-#OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '3-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
-#--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
-#
+# Fried Egg, 173 sequences
+OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '2-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
+--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
+
+# Juice, 162 sequences
+OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '3-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
+--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
+
 # Milk, 187 sequences
 OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '4-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
 --log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
 
-## Pancakes, 157 sequences
-#OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '5-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
-#--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
-#
-## Salad, 163 sequences
-#OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '6-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
-#--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
-#
-## Sandwiches, 169 sequences
-#OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '7-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
-#--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
-#
-## Scrambled Eggs, 166 sequences
-#OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '8-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
-#--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
-#
-## Tea, 184 sequences
-#OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '9-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
-#--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
+# Pancakes, 157 sequences
+OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '5-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
+--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
+
+# Salad, 163 sequences
+OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '6-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
+--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
+
+# Sandwiches, 169 sequences
+OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '7-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
+--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
+
+# Scrambled Eggs, 166 sequences
+OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '8-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
+--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
+
+# Tea, 184 sequences
+OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '9-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
+--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
 
 
 # Results of the evaluation for logged data when running
