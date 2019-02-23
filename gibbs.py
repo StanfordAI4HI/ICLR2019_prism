@@ -536,7 +536,7 @@ if __name__ == '__main__':
     argparse.add_argument('--n_iters', default=201, type=int)
 
     args = argparse.parse_args()
-
+    print (args.log)
     kwargs = vars(args)
     print(kwargs)
 
