@@ -19,56 +19,61 @@ for ((j=71; j<=76; j++)); do
    --log $log --p_type ind --a_type tied-across --s_model 200 --k_model -1 --gamma 1.0 --delta 1.0
 done
 
-# TSS, NMI
 
-# Bees-1
-# GMM: 58.14, 19.97
-# Det-HMM: 66.12, 32.59
-# Stoch-HMM: 63.46, 28.96
-# VStoch-HMM: 59.62, 22.51
+# Results of the evaluation for logged data when running
+# ./eval_bees.sh 10 0
+# should be
 
-# Us (no gmm): 61.34, 25.04
+# Evaluation on Bees_1
+# Average performance for d_71___p_ind__a_tied-across_0__seed_10__km_3__sm_200__gamma_1.00__delta_1.00__gmm_0 (across all specified seeds).
+# NMI: 0.25
+# Munkres: 0.60
+# RSS: 0.50
+# LASS: 0.84
+# SSS: 0.79
+# TSS: 0.62
 
+# Evaluation on Bees_2
+# Average performance for d_72___p_ind__a_tied-across_0__seed_10__km_3__sm_200__gamma_1.00__delta_1.00__gmm_0 (across all specified seeds).
+# NMI: 0.46
+# Munkres: 0.78
+# RSS: 0.70
+# LASS: 0.87
+# SSS: 0.83
+# TSS: 0.76
 
-# Bees-2
-# GMM: 66.21, 36.60
-# Det-HMM: 67.30, 34.63
-# Stoch-HMM: 70.63, 38.73
-# VStoch-HMM: 77.57, 51.03
+# Evaluation on Bees_3
+# Average performance for d_73___p_ind__a_tied-across_0__seed_10__km_3__sm_200__gamma_1.00__delta_1.00__gmm_0 (across all specified seeds).
+# NMI: 0.18
+# Munkres: 0.49
+# RSS: 0.44
+# LASS: 0.80
+# SSS: 0.73
+# TSS: 0.55
 
-# Us (no gmm): 74.84, 46.01
+# Evaluation on Bees_4
+# Average performance for d_74___p_ind__a_tied-across_0__seed_10__km_3__sm_200__gamma_1.00__delta_1.00__gmm_0 (across all specified seeds).
+# NMI: 0.42
+# Munkres: 0.75
+# RSS: 0.77
+# LASS: 0.87
+# SSS: 0.81
+# TSS: 0.78
 
+# Evaluation on Bees_5
+# Average performance for d_75___p_ind__a_tied-across_0__seed_10__km_3__sm_200__gamma_1.00__delta_1.00__gmm_0 (across all specified seeds).
+# NMI: 0.56
+# Munkres: 0.82
+# RSS: 0.85
+# LASS: 0.89
+# SSS: 0.83
+# TSS: 0.84
 
-# Bees-3
-# GMM: 47.61, 13.58
-# Det-HMM: 50.24, 15.86
-# Stoch-HMM: 50.55, 14.81
-# VStoch-HMM: 54.54, 20.52
-
-# Us (no gmm): 52.72, 18.26
-
-
-# Bees-4
-# GMM: 62.85, 31.20
-# Det-HMM: 74.78 38.94
-# Stoch-HMM: 73.89 37.27
-# VStoch-HMM: 77.59, 42.43
-
-# Us (no gmm): 76.40, 41.57
-
-
-# Bees-5
-# GMM: 72.31, 39.86
-# Det-HMM: 81.65, 59.53
-# Stoch-HMM: 81.60, 57.61
-# VStoch-HMM: 85.04, 61.37
-
-# Us (no gmm): 82.63, 56.11
-
-# Bees-6
-# GMM: 65.04, 31.98
-# Det-HMM: 68.16, 41.52
-# Stoch-HMM: 78.95, 50.10
-# VStoch-HMM: 85.77, 62.46
-
-# Us (no gmm): 80.71, 53.72
+# Evaluation on Bees_6
+# Average performance for d_76___p_ind__a_tied-across_0__seed_10__km_3__sm_200__gamma_1.00__delta_1.00__gmm_0 (across all specified seeds).
+# NMI: 0.54
+# Munkres: 0.82
+# RSS: 0.83
+# LASS: 0.87
+# SSS: 0.82
+# TSS: 0.82
