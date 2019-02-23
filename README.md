@@ -1,12 +1,10 @@
 # Learning Procedural Abstractions
 
-This repository provides code to run experiments from,
+This repository provides an implementation of Prism, the hierarchical Bayesian model introduced in,
  
 **Learning Procedural Abstractions and Evaluating Discrete Latent Temporal Structure**  
 Karan Goel and Emma Brunskill  
 _ICLR 2019_
-
-This repository provides an implementation of Prism, the hierarchical Bayesian model introduced in the paper.
  
 
 ### Usage
