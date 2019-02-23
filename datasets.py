@@ -35,7 +35,6 @@ def load_inria_dataset(task_type='0_1_2_3_4', remove_background=False, path=None
                 all_time_series.append(x[0])
                 all_gt_labels.append(np.where(y[0] == 1)[1][:len(x[0])])
 
-
             all_names.append(meta[1][0])
 
         return all_time_series, all_names, all_gt_labels
@@ -65,7 +64,6 @@ def load_breakfast_dataset(task_type='0_1_2_3_4_5_6_7_8_9',
                            camera_type=4,
                            path=None):
 
-    path = '/next/u/kgoel/bayesian-activity/datasets/breakfast_data/'
     fisher_path = path + '/fisher/s1/'
     labels_path = path + ['segmentation_fine/', 'segmentation_coarse/'][int(coarse_segmentation)]
 
@@ -145,7 +143,6 @@ def load_breakfast_dataset(task_type='0_1_2_3_4_5_6_7_8_9',
 
 
 def load_surgery_dataset(task_type='kns', feature_type='k', path=None):
-    path = '/next/u/kgoel/bayesian-activity/datasets/surgery_dataset/'
     knot_tying_path = path + 'Knot_Tying/'
     needle_passing_path = path + 'Needle_Passing/'
     suturing_path = path + 'Suturing/'
@@ -229,8 +226,6 @@ def load_surgery_dataset(task_type='kns', feature_type='k', path=None):
 # International Journal of Computer Vision (IJCV) Special Issue on Learning for Vision, May 2008.
 
 def load_bees_dataset(path=None):
-    # path = 'datasets/bees/data/'
-    path = '/next/u/kgoel/bayesian-activity/datasets/bees/data/'
     folders = glob(path + 'seq*')
     time_series = []
     gt_labels = []

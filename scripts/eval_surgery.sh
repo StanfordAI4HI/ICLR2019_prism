@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-#
+
+path = '/next/u/kgoel/bayesian-activity/datasets/surgery_dataset/'
 #
 seed=$(($2+1))
 #OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-10-20-1' --seed $seed --num_seeds $1 \

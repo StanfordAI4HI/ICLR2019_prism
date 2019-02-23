@@ -418,7 +418,7 @@ def evaluation(**kwargs):
             seeds_mean_lass.append(mean_lass)
             seeds_mean_sss.append(mean_sss)
 
-    print("Average performance for %s." % (log_path.split("/")[-1]))
+    print("Average performance for %s (across all specified seeds)." % (log_path.split("/")[-1]))
     print("NMI: %2.2f" % (np.mean(seeds_mean_nmi)))
     print("Munkres: %2.2f" % (np.mean(seeds_mean_munkres)))
     print("RSS: %2.2f" % (np.mean(seeds_mean_rss)))

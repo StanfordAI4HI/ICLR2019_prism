@@ -10,6 +10,9 @@ seed=$(($2+1))
 # Path to where the logs are
 log="/next/u/kgoel/bayesian-activity/logs/bees/"
 
+# Path to where the dataset is
+dataset="/next/u/kgoel/bayesian-activity/datasets/bees/data/"
+
 # Loops over and runs evaluation for all 6 Bees sequences
 for ((j=71; j<=76; j++)); do
    OMP_NUM_THREADS=1 python gibbs.py evaluate $j --seed $seed --num_seeds $1 \

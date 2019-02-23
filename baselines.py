@@ -32,8 +32,9 @@ def evaluation(**kwargs):
             seeds_nmi.append(nmi)
             seeds_score.append(score)
 
-    print("Averaged performance (mean nmi, mean score, nmi, score)", np.mean(seeds_avg_nmi),
-          np.mean(seeds_avg_score), np.mean(seeds_nmi), np.mean(seeds_score))
+    print("Average performance for %s (across all specified seeds)." % (log_path.split("/")[-1]))
+    print("NMI: %2.2f" % (np.mean(seeds_nmi)))
+    print("TSS: %2.2f" % (np.mean(seeds_score)))
 
 
 def evaluate_single_run(log_path, **kwargs):
@@ -65,11 +66,6 @@ def evaluate_single_run(log_path, **kwargs):
 
     combined_ts_score = temporal_structure_score_new(combined_seq_gt, combined_seq_pred)
     combined_nmi = normalized_mutual_info_score(combined_seq_gt, combined_seq_pred)
-
-    print("Score", np.mean(nmi_scores), np.mean(ts_scores), combined_nmi, combined_ts_score,
-          repeated_structure_score(combined_seq_gt, combined_seq_pred, substring=True),
-          segment_structure_score(combined_seq_gt, combined_seq_pred),
-          segment_structure_score(combined_seq_pred, combined_seq_gt))
 
     return np.mean(nmi_scores), np.mean(ts_scores), combined_nmi, combined_ts_score
 
