@@ -14,7 +14,7 @@ log="/next/u/kgoel/bayesian-activity/logs/inria/"
 dataset="/next/u/kgoel/bayesian-activity/datasets/inria_dataset/VISION/"
 
 # Run evaluation for each of the activities, in sequence
-# Note: run as background processes these by adding & at the end of each command
+# Note: run as background processes by adding & at the end of each command
 
 # Changing tire
 OMP_NUM_THREADS=1 python ../gibbs.py evaluate 91 $dataset --data_config '0' --seed $seed --num_seeds $1 \
