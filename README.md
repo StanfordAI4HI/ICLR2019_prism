@@ -50,18 +50,9 @@ and unzip them at a suitable location. Note that the logs are quite large (~3-5 
 
 after editing `scripts/eval_inria_background.sh` to update the location of the log and dataset paths. Your output
 should reproduce those shown in `scripts/eval_inria_background.sh`. Running on other datasets is exactly identical using 
-the other evaluation scripts in `/scripts`.
+the other evaluation scripts in `/scripts`. Note that evaluation may be slow since the logs are very large and contain
+the history of the entire Gibbs sampler.
 
-
-
-(2) Unzip ``logs.zip`` and ``datasets.zip`` which should yield ``logs/`` and `datasets/`. 
-
-(3) Then, reproduce results on the `bees_0` dataset by running   
-
-``> python evaluate.py --dataset bees_0``
-  
-which will reproduce all the plots and visualizations from the first sequence of the Bees dataset in ``plots/``. 
-Run ``python evaluate.py`` to see a list of the available datasets.
 
 #### Using Prism with your data
 
@@ -75,7 +66,7 @@ or custom settings using the `data_config` and different ground-truth labelings 
 the data in a new `if` condition (make sure to give your dataset a unique id) and specify all the variables required 
 in `load_dataset()` (see examples for the INRIA/JIGSAWS/Breakfast/Bees datasets for clarification).
 
-(2) Run Prism!
+(2) Run Prism in `gibbs.py`!
 
 Add a script to `scripts/` to run Prism. Examples on how to run Prism can be found in `scripts/run_<dataset>.sh`.
 
@@ -83,5 +74,7 @@ Add a script to `scripts/` to run Prism. Examples on how to run Prism can be fou
 
 Add a script to `scripts/` to evaluate Prism. Examples on how to evaluate Prism can be found in `scripts/eval_<dataset>.sh`.
 
+Word of caution: The logs can grow to be very large since they are storing the history of the entire Gibbs sampler so you should have
+plenty of disk space. You  will need to edit `gibbs.py` to change this behavior (make sure to also edit the evaluation functions in this case).
 
 Please contact Karan Goel ``kgoel <at> cs <dot> stanford <dot> edu`` for questions!
