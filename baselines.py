@@ -34,18 +34,6 @@ def evaluation(**kwargs):
 
     print("Averaged performance (mean nmi, mean score, nmi, score)", np.mean(seeds_avg_nmi),
           np.mean(seeds_avg_score), np.mean(seeds_nmi), np.mean(seeds_score))
-    print("Confidence intervals (mean nmi, mean score, nmi, score)",
-          np.mean(seeds_avg_nmi) - 1.96 * np.std(seeds_avg_nmi) / np.sqrt(len(seeds_avg_nmi)),
-          np.mean(seeds_avg_nmi) + 1.96 * np.std(seeds_avg_nmi) / np.sqrt(len(seeds_avg_nmi)),
-          np.mean(seeds_avg_score) - 1.96 * np.std(seeds_avg_score) / np.sqrt(len(seeds_avg_score)),
-          np.mean(seeds_avg_score) + 1.96 * np.std(seeds_avg_score) / np.sqrt(len(seeds_avg_score)),
-          np.mean(seeds_nmi) - 1.96 * np.std(seeds_nmi) / np.sqrt(len(seeds_nmi)),
-          np.mean(seeds_nmi) + 1.96 * np.std(seeds_nmi) / np.sqrt(len(seeds_nmi)),
-          np.mean(seeds_score) - 1.96 * np.std(seeds_score) / np.sqrt(len(seeds_score)),
-          np.mean(seeds_score) + 1.96 * np.std(seeds_score) / np.sqrt(len(seeds_score)))
-
-    print("Median performance (mean nmi, mean score, nmi, score)", np.median(seeds_avg_nmi),
-          np.median(seeds_avg_score), np.median(seeds_nmi), np.median(seeds_score))
 
 
 def evaluate_single_run(log_path, **kwargs):
@@ -69,7 +57,6 @@ def evaluate_single_run(log_path, **kwargs):
     ts_scores = []
     nmi_scores = []
     combined_seq_gt, combined_seq_pred = [], []
-    print(len(z_data), len(preds))
     for gt, pred in zip([list(t.long().numpy()) for t in z_data], preds):
         ts_scores.append(temporal_structure_score_new(gt, pred))
         nmi_scores.append(normalized_mutual_info_score(gt, pred))
@@ -83,10 +70,6 @@ def evaluate_single_run(log_path, **kwargs):
           repeated_structure_score(combined_seq_gt, combined_seq_pred, substring=True),
           segment_structure_score(combined_seq_gt, combined_seq_pred),
           segment_structure_score(combined_seq_pred, combined_seq_gt))
-
-    # kwargs['extension'] = str(i + 1)
-    # kwargs['log'] = log_path
-    # visualize_many_temporal_clusterings(list([list(t.long().numpy()) for t in z_data]), preds, **kwargs)
 
     return np.mean(nmi_scores), np.mean(ts_scores), combined_nmi, combined_ts_score
 

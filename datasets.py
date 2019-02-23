@@ -15,151 +15,9 @@ from scipy.io import loadmat, savemat, wavfile
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-import librosa
 
 
-def load_piano_dataset(tast_type='',
-                       feature_type='a',
-                       target_fps=10,
-                       coarse_segmentation=True):
-
-    path = '/next/u/kgoel/bayesian-activity/datasets/piano_dataset/'
-    # path = '/Users/krandiash/Desktop/deeprl/QuickRL/datasets/bach_dataset/'
-    labels_path = path + ['fine_segmentation.txt', 'coarse_segmentation.txt'][int(coarse_segmentation)]
-
-    def get_top_down_video_ids(path):
-        top_down_videos = set()
-        with open(path) as f:
-            for line in f:
-                vid_id = line.rstrip()
-                top_down_videos.add(vid_id)
-        return top_down_videos
-
-    def get_snippet_information(path, target_fps):
-        video_info = {}
-        with open(path) as f:
-            for line in f:
-                vid_id, start_time, end_time = line.rstrip().split(", ")
-                start_frame = target_fps * int(start_time)
-                end_frame = target_fps * int(end_time)
-                video_info[vid_id] = (start_frame, end_frame)
-        return video_info
-
-    top_down_videos = get_top_down_video_ids(path + 'top_down_video.txt')
-
-    def process_videos(path, target_size=(224, 224)):
-        os.chdir(path)
-        target_path = path + '/processed__%d_%d' % (target_size[0], target_size[1])
-
-        if os.path.exists(target_path):
-            return
-
-        os.mkdir(target_path)
-        cmd = 'for f in *.mp4; do mkdir %s/${f%%.*}; ffmpeg -y -i $f -r %d -s %dx%d -q:v 2 %s/${f%%.*}/%%03d.jpg; done' % (
-        target_path, target_fps, target_size[0], target_size[1], target_path)
-        os.system(cmd)
-        os.chdir('..')
-
-
-    def load_midi_features(path):
-        video_info = get_snippet_information(path + 'video_time_info.txt', 1)
-
-        files = list(sorted(glob(path + '/audio/*')))
-        trajs = {}
-        for i, f in tqdm(enumerate(files)):
-            demo_id = f.split("/")[-1].split(".")[0]
-            if demo_id not in top_down_videos:
-                continue
-            start_frame, end_frame = video_info[demo_id][0], video_info[demo_id][1]
-            rate, data = wavfile.read(f)
-            y_harm = librosa.effects.harmonic(y=data.astype(float)[start_frame * rate:end_frame* rate])
-            chroma = librosa.feature.chroma_cqt(y=y_harm, sr=rate, hop_length=4416, bins_per_octave=12*4)
-            chroma_filter = np.minimum(chroma, librosa.decompose.nn_filter(chroma, aggregate=np.median,
-                                                                                   metric='cosine'))
-            chroma_thresh = chroma_filter.copy()
-            chroma_thresh[chroma_filter < 0.8] = 0.
-            chroma_thresh[chroma_filter > 0.] = 1.
-            trajs[demo_id] = chroma_thresh.T
-
-        return trajs
-
-    def load_audio_features(path):
-        video_info = get_snippet_information(path + 'video_time_info.txt', 1)
-
-        nfft = 2 ** 13  # This is fixed after some experimentation
-        noverlap = 3820  # This is fixed after some experimentation
-
-        files = list(sorted(glob(path + '/audio/*')))
-        trajs = {}
-        for i, f in tqdm(enumerate(files)):
-            demo_id = f.split("/")[-1].split(".")[0]
-            if demo_id not in top_down_videos:
-                continue
-            start_frame, end_frame = video_info[demo_id][0], video_info[demo_id][1]
-            rate, data = wavfile.read(f)
-            fs = rate  # Sampling frequency
-            pxx, _, _, _ = plt.specgram(data, nfft, fs, window=np.hamming(nfft), noverlap=noverlap)
-            pxx = pxx.swapaxes(0, 1)
-            pxx = pxx[start_frame * target_fps:end_frame * target_fps]
-            if demo_id == 'IZ9NFFX8sSM':
-                pxx[10], pxx[11], pxx[12] = pxx[9], pxx[9], pxx[9]
-            plt.close()
-            trajs[demo_id] = pxx
-
-        return trajs
-
-    def load_gt_labels(path, traj_lens):
-        print (traj_lens)
-        segmentations = {}
-        with open(path) as f:
-            for line in f:
-                line = line.rstrip().split(", ")
-                _, video_id, segmentation_info = int(line[0]), line[1], line[2:]
-                segmentation_info = [tuple([int(x) for x in e.split("|")]) for e in segmentation_info]
-                if video_id not in segmentations:
-                    segmentations[video_id] = []
-                segmentations[video_id].extend(segmentation_info)
-
-        gt_labels = {}
-        for id, seg in segmentations.items():
-            gt_labels[id] = np.zeros(traj_lens[id])
-            gt_labels[id][0:seg[0][1]] = seg[0][0]
-            for i in range(len(seg) - 1):
-                gt_labels[id][seg[i][1]:seg[i + 1][1]] = seg[i + 1][0]
-            gt_labels[id][-1] = gt_labels[id][-2]
-
-        return gt_labels
-
-
-    # process_videos(path + '/video')
-
-    if 'a' in feature_type:
-        audio_time_series = load_audio_features(path)
-
-        gt_labels = load_gt_labels(labels_path, {k: len(e) for k, e in audio_time_series.items()})
-        all_names = natsorted(gt_labels.keys())
-        all_gt_labels = [gt_labels[k] for k in natsorted(gt_labels.keys())]
-
-        all_time_series = [audio_time_series[k] for k in natsorted(audio_time_series.keys())]
-
-    elif 'm' in feature_type:
-        midi_time_series = load_midi_features(path)
-
-        gt_labels = load_gt_labels(labels_path, {k: len(e) for k, e in midi_time_series.items()})
-        all_names = natsorted(gt_labels.keys())
-        all_gt_labels = [gt_labels[k] for k in natsorted(gt_labels.keys())]
-
-        all_time_series = [midi_time_series[k] for k in natsorted(midi_time_series.keys())]
-
-    le = LabelEncoder()
-    le.fit(np.concatenate(all_gt_labels))
-    for i in range(len(all_gt_labels)):
-        all_gt_labels[i] = le.transform(all_gt_labels[i])
-
-    return all_time_series, all_gt_labels, all_names
-
-
-def load_inria_dataset(task_type='0_1_2_3_4', remove_background=False):
+def load_inria_dataset(task_type='0_1_2_3_4', remove_background=False, path=None):
     # path = '/users/krandiash/Downloads/VISION/'
     path = '/next/u/kgoel/bayesian-activity/datasets/inria_dataset/VISION/'
 
@@ -209,7 +67,8 @@ def load_inria_dataset(task_type='0_1_2_3_4', remove_background=False):
 def load_breakfast_dataset(task_type='0_1_2_3_4_5_6_7_8_9',
                            feature_type='f',
                            coarse_segmentation=True,
-                           camera_type=4):
+                           camera_type=4,
+                           path=None):
 
     path = '/next/u/kgoel/bayesian-activity/datasets/breakfast_data/'
     fisher_path = path + '/fisher/s1/'
@@ -291,7 +150,7 @@ def load_breakfast_dataset(task_type='0_1_2_3_4_5_6_7_8_9',
     return all_time_series, all_gt_labels, all_names
 
 
-def load_surgery_dataset(task_type='kns', feature_type='k'):
+def load_surgery_dataset(task_type='kns', feature_type='k', path=None):
     path = '/next/u/kgoel/bayesian-activity/datasets/surgery_dataset/'
     knot_tying_path = path + 'Knot_Tying/'
     needle_passing_path = path + 'Needle_Passing/'
@@ -375,7 +234,7 @@ def load_surgery_dataset(task_type='kns', feature_type='k'):
 # Sang Min Oh, James M. Rehg, Tucker Balch, Frank Dellaert
 # International Journal of Computer Vision (IJCV) Special Issue on Learning for Vision, May 2008.
 
-def load_bees_dataset():
+def load_bees_dataset(path=None):
     # path = 'datasets/bees/data/'
     path = '/next/u/kgoel/bayesian-activity/datasets/bees/data/'
     folders = glob(path + 'seq*')
@@ -883,91 +742,6 @@ def load_dataset(**kwargs):
         means_data = None
         stds_data = None
 
-    elif dataset in [10, 12]:
-        data_config = [int(e) for e in data_config]
-        feature_type = {10:'a', 12:'m'}[dataset]
-        x_data, z_data, meta_data = load_piano_dataset(feature_type=feature_type, coarse_segmentation=int(eval_config[0]))
-
-        # Sort all the sequences in descending order of lengths
-        x_data, z_data, meta_data = zip(*sorted(zip(x_data, z_data, meta_data), key=lambda e: len(e[0]), reverse=True))
-
-        # First reduce the number of components per time-step using PCA (this is okay)
-        if feature_type == 'a':
-            pca = PCA(n_components=16)
-            pca.fit(np.concatenate(x_data))
-            print (np.sum(pca.explained_variance_ratio_))
-            x_data = [pca.transform(e) for e in x_data]
-
-        # Task specific preprocessing
-        # Figure out which sequences we're looking at
-        x_data = x_data[data_config[1]:data_config[2]]
-        z_data = z_data[data_config[1]:data_config[2]]
-        meta_data = meta_data[data_config[1]:data_config[2]]
-
-        # Stack up a few time-steps
-        if data_config[0] > 0:
-            if data_config[0] == 1:
-                stack_sizes = [5]  # [1, 10, 100]#[1, 3, 10, 30, 100]
-                n_pca_components = [20]  # [12, 10, 16, 16, 20]
-            elif data_config[0] == 2:
-                stack_sizes = [3]  # [1, 10, 100]#[1, 3, 10, 30, 100]
-                n_pca_components = [20]  # [12, 10, 16, 16, 20]
-            elif data_config[0] == 3:
-                stack_sizes = [10]
-                n_pca_components = [20]
-
-            max_stack_size = max(stack_sizes)
-            x_data_stacks = []
-
-            for i, stack_size in enumerate(stack_sizes):
-                x_data_stack = [
-                    np.hstack([e[j + (max_stack_size - stack_size):-stack_size + j] for j in range(stack_size)]) for e
-                    in x_data]
-
-                # Do PCA again
-                if n_pca_components[i] > 0:
-                    pca = PCA(n_components=n_pca_components[i])
-                    pca.fit(np.concatenate(x_data_stack))
-                    x_data_stack = [pca.transform(e) for e in x_data_stack]
-                    print ("PCA", stack_size, n_pca_components[i], sum(pca.explained_variance_ratio_),
-                           pca.explained_variance_ratio_)
-
-                x_data_stacks.append(x_data_stack)
-
-            x_data = [np.hstack(seq) for seq in zip(*x_data_stacks)]
-            z_data = [e[max_stack_size - 1:-1] for e in z_data]
-
-        # Standardize
-        scaler = StandardScaler()
-        scaler.fit(np.concatenate(x_data))
-        x_data = [scaler.transform(e) for e in x_data]
-
-        n = len(x_data)
-        print (n, len(z_data))
-        k_data = len(np.unique([e2 for e1 in z_data for e2 in e1]))
-
-        d_data = x_data[0].shape[-1]
-
-        p_data = []
-        w_data = []
-        for z in z_data:
-            p_data.append([z[0]])
-            w_data.append([0])
-            last_p = z[0]
-            for e in z:
-                if e != last_p:
-                    p_data[-1].append(e)
-                    w_data[-1].append(1)
-                    last_p = e
-                else:
-                    w_data[-1][-1] += 1
-
-        s_data = max([len(e) for e in p_data])
-        m_data = [len(e) for e in x_data]
-
-        means_data = None
-        stds_data = None
-
     # Pad all the sequences
     x_data = [torch.tensor(e).float() for e in x_data]
     masks_data = compute_masks(x_data)
@@ -987,48 +761,3 @@ def load_dataset(**kwargs):
             'd_data': d_data,
             'masks_data': masks_data,
             'meta_data': meta_data}
-
-
-
-if __name__ == '__main__':
-    # load_surgery_dataset()
-    # load_breakfast_dataset('9')
-
-    # for i in range(10):
-    #     kwargs = {'dataset': 8,
-    #               'data_config': '%d-0-5-1' %(i),
-    #               'eval_config': '1'}
-    #     data = load_dataset(**kwargs)
-    #     total_frames = 0
-    #     for e in data['x_data']:
-    #         total_frames += len(e)
-    #     print (total_frames)
-    #     print (len(data['x_data']))
-
-    # load_inria_dataset('0')
-    # load_inria_dataset('1')
-    # load_inria_dataset('2')
-    # load_inria_dataset('3')
-    # load_inria_dataset('4')
-    # for i in range(5):
-    #     kwargs = {'dataset': 91,
-    #               'data_config': '%d'%i,
-    #               'eval_config': ''}
-    #     load_dataset(**kwargs)
-    #
-    #     kwargs = {'dataset': 9,
-    #               'data_config': '%d' % i,
-    #               'eval_config': ''}
-    #     load_dataset(**kwargs)
-
-    #
-    # kwargs = {'dataset': 12,
-    #           'data_config': '3-0-1',
-    #           'eval_config': '0'}
-    # print(load_dataset(**kwargs))
-
-    kwargs = {'dataset': 10,
-              'data_config': '0-0-1',
-              'eval_config': '0'}
-    print(load_dataset(**kwargs))
-

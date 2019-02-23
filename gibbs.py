@@ -128,7 +128,6 @@ def gibbs_sampler_a(n, m, s, delta, a, w, p, means, sigmas, x, a_type, a_bound, 
             indices[1] = z_after_critical
 
             # Calculate the data likelihood, under each of the different futures we've imagined
-            # data_log_prob = torch.sum(mvnormal.log_prob(x[group][critical_points].unsqueeze(1))[indices], dim=1)
             data_log_prob = torch.sum(data_likelihood[critical_points][indices], dim=1)
 
             # Adjust the counts to remove a_j to correctly sample from the posterior
@@ -169,20 +168,6 @@ def gibbs_sampler_a(n, m, s, delta, a, w, p, means, sigmas, x, a_type, a_bound, 
     return a, w
 
 
-
-def gibbs_sampler_p_hmm(n, m, s, k, delta, a, w, p, z, means, sigmas, x):
-
-    def forward():
-        # Table of forward probabilities -- Pr (p_j | X_j, \lambda)
-        alpha = torch.zeros(s, k)
-        # alpha[0, :] =
-        # Fill out the table
-        for j in range(s):
-            pass
-    # Sample p
-    pass
-
-
 def gibbs_sampler_p(n, m, s, k, gamma, a, w, p, z, means, sigmas, x):
     # Sample p
     alt = MultivariateNormalFast(means, sigmas)
@@ -194,14 +179,10 @@ def gibbs_sampler_p(n, m, s, k, gamma, a, w, p, z, means, sigmas, x):
         # Compute the likelihood of the data in segment i across all the groups, given that p_i = kth topic
         for group in range(n):
             # Data in the group that lies in segment i
-            # x_i = x[group][(w[group] == i)]
             x_i = x[group][(torch.tensor(w[group]) == i)]
-            # x_i = x[group][(w[group] == i).astype(int)]
 
             # Check if there's actually any such data
             if x_i.shape[0] > 0:
-                # data_log_prob = dist.Normal(means, sigmas.unsqueeze(-1)).independent(1).log_prob(x_i.unsqueeze(-2))
-                # data_log_prob = dist.MultivariateNormal(means, sigmas).log_prob(x_i.unsqueeze(-2))
                 data_log_prob = alt.log_prob(x_i.unsqueeze(-2))
                 data_log_prob = torch.sum(data_log_prob, dim=0)
                 total_log_prob += data_log_prob
@@ -213,6 +194,7 @@ def gibbs_sampler_p(n, m, s, k, gamma, a, w, p, z, means, sigmas, x):
 
     return p
 
+
 def gibbs_sampler_p_constrained(n, m, s, k, delta, gamma, a, w, p, z, means, sigmas, x, rho):
     # Sample p
     alt = MultivariateNormalFast(means, sigmas)
@@ -223,9 +205,8 @@ def gibbs_sampler_p_constrained(n, m, s, k, delta, gamma, a, w, p, z, means, sig
         # Compute the likelihood of the data in segment i across all the groups, given that p_i = kth topic
         for group in range(n):
             # Data in the group that lies in segment i
-            # x_i = x[group][w[group] == i]
             x_i = x[group][(torch.tensor(w[group]) == i)]
-            # x_i = x[group][(w[group] == i).astype(int)]
+
             # Check if there's actually any such data
             if x_i.shape[0] > 0:
                 data_log_prob = alt.log_prob(x_i.unsqueeze(-2))
@@ -252,7 +233,6 @@ def gibbs_sampler_p_constrained(n, m, s, k, delta, gamma, a, w, p, z, means, sig
                 total_prob /= total_prob.sum()
             else:
                 total_prob = torch.ones(k)/k
-            # print (total_prob)
         p[i] = dist.Categorical(total_prob).sample()
 
     return p
@@ -294,27 +274,24 @@ def gibbs_sampler_mu_sigma(n, m, s, k, delta, gamma, a, w, p, z, means, sigmas, 
             x_bar = torch.mean(data, dim=-2)
 
             self_outer = lambda x: np.outer(x, x)
-            S = torch.tensor(np.cov(data, rowvar=False)).float()#torch.tensor(np.sum(np.apply_along_axis(self_outer, 1, (data - x_bar)), axis=0))
+            S = torch.tensor(np.cov(data, rowvar=False)).float()
             S = S * (data.shape[0] - 1) if data.shape[0] > 1. else S
-            # print (S, S.shape)
-            # print (np.cov(data, rowvar=False) * (data.shape[0] - 1), np.cov(data, rowvar=False).shape)
             n_i = data.shape[0]
 
-            # Find the parameters for the posterior that we're sampling (see Wikipedia on Normal-inverse-Wishart distribution)
+            # Find the parameters for the posterior that we're sampling
+            # (see Wikipedia on Normal-inverse-Wishart distribution)
             mu_0_prime = (lamda * mu_0 + n_i * x_bar)/(lamda + n_i)
             lamda_prime = lamda + n_i
             nu_prime = nu + n_i
             psi_prime = psi + S + (lamda*n_i)/(lamda + n_i) * torch.tensor(self_outer(x_bar - mu_0))
-            # print (np.linalg.det(S), np.linalg.det(np.cov(data, rowvar=False) * (data.shape[0] - 1)))
-            # print ((lamda*n_i)/(lamda + n_i) * torch.tensor(self_outer(x_bar - mu_0)))
 
-        # print (psi_prime, nu_prime)
         means_i, sigmas_i = normal_inverse_wishart_sample(mu_0_prime, lamda_prime, psi_prime, nu_prime)
 
         means[i] = torch.tensor(means_i)
-        sigmas[i] = torch.tensor(sigmas_i)# + np.eye(sigmas_i.shape[-1]) * 1e-1)
+        sigmas[i] = torch.tensor(sigmas_i)
 
     return means, sigmas
+
 
 def gmm_initialization(k, x, masks):
     gmm = GaussianMixture(k, max_iter=1000)
@@ -424,7 +401,6 @@ def run_gibbs(**kwargs):
 
 
 def evaluation(**kwargs):
-
     base_seed = kwargs['seed']
     num_seeds = kwargs['num_seeds']
     seeds_mean_avg_nmi, seeds_mean_avg_score, seeds_mean_nmi, seeds_mean_score = [], [], [], []
@@ -447,19 +423,6 @@ def evaluation(**kwargs):
     print ("%s Averaged performance (mean nmi, mean score, nmi, score, munkres, rss, lass, sss)" % (log_path.split("/")[-1]), np.mean(seeds_mean_avg_nmi),
            np.mean(seeds_mean_avg_score), np.mean(seeds_mean_nmi), np.mean(seeds_mean_score), np.mean(seeds_mean_munkres),
            np.mean(seeds_mean_rss), np.mean(seeds_mean_lass), np.mean(seeds_mean_sss))
-    # print ("Confidence intervals (mean nmi, mean score, nmi, score)",
-    #        np.mean(seeds_mean_avg_nmi) - 1.96 * np.std(seeds_mean_avg_nmi) / np.sqrt(len(seeds_mean_avg_nmi)),
-    #        np.mean(seeds_mean_avg_nmi) + 1.96 * np.std(seeds_mean_avg_nmi) / np.sqrt(len(seeds_mean_avg_nmi)),
-    #        np.mean(seeds_mean_avg_score) - 1.96 * np.std(seeds_mean_avg_score) / np.sqrt(len(seeds_mean_avg_score)),
-    #        np.mean(seeds_mean_avg_score) + 1.96 * np.std(seeds_mean_avg_score) / np.sqrt(len(seeds_mean_avg_score)),
-    #        np.mean(seeds_mean_nmi) - 1.96 * np.std(seeds_mean_nmi) / np.sqrt(len(seeds_mean_nmi)),
-    #        np.mean(seeds_mean_nmi) + 1.96 * np.std(seeds_mean_nmi) / np.sqrt(len(seeds_mean_nmi)),
-    #        np.mean(seeds_mean_score) - 1.96 * np.std(seeds_mean_score) / np.sqrt(len(seeds_mean_score)),
-    #        np.mean(seeds_mean_score) + 1.96 * np.std(seeds_mean_score) / np.sqrt(len(seeds_mean_score)))
-
-    # print ("Median performance (mean nmi, mean score, nmi, score)", np.median(seeds_mean_avg_nmi),
-    #        np.median(seeds_mean_avg_score), np.median(seeds_mean_nmi), np.median(seeds_mean_score))
-    #
 
 
 def evaluate_single_run(log_path, **kwargs):
@@ -488,15 +451,8 @@ def evaluate_single_run(log_path, **kwargs):
     avg_lass = []
     avg_sss = []
     for i, (a, p, rho, m, s) in enumerate(list(zip(*history))[-50::5]):
-        # print ("Iter")
         w = torch.sort(a)[0]
 
-        # for we in w:
-        #     print (np.unique(we, return_counts=True))
-        #     print (p[np.unique(we)])
-        # print (p)
-        # print (m)
-        # print (s)
         num_segs = 0
         prev_p = p[0]
         for token in p:
@@ -512,11 +468,6 @@ def evaluate_single_run(log_path, **kwargs):
 
         combined_seq_gt, combined_seq_pred = [], []
         for j, (gt, pred) in enumerate(zip(list([list(t.long().numpy()) for t in z_data]), list([list(t.long().numpy()) for t in z]))):
-            # print (j, metadata[j])
-            # kwargs['log'] = log_path
-            # kwargs['extension'] = str(i) + '_' + str(j + 1)
-            # visualize_temporal_clusterings(relabel_clustering_with_munkres_correspondences(gt, gt),
-            #                                relabel_clustering_with_munkres_correspondences(relabel_clustering_with_munkres_correspondences(gt, gt), pred), **kwargs)
             scores.append(temporal_structure_score_new(gt, pred))
             nmis.append(normalized_mutual_info_score(gt, pred))
             combined_seq_gt.extend(gt)
@@ -528,14 +479,6 @@ def evaluate_single_run(log_path, **kwargs):
         lass = label_agnostic_segmentation_score(combined_seq_gt, combined_seq_pred)
         rss = repeated_structure_score(combined_seq_gt, combined_seq_pred, aligned=False, substring=True, with_purity=True)
         sss = segment_structure_score_new(combined_seq_gt, combined_seq_pred)
-
-        np.save('/next/u/kgoel/bayesian-activity/logs/nips_demo/' + log_path.split("/")[-1], combined_seq_pred)
-
-        # print ("Score", np.mean(nmis), np.mean(scores), nmi, combined_score,
-        #        repeated_structure_score(combined_seq_gt, combined_seq_pred, substring=True),
-        #        segment_structure_score(combined_seq_gt, combined_seq_pred),
-        #        segment_structure_score(combined_seq_pred, combined_seq_gt),
-        #        munkres)
 
         avg_nmis.append(np.mean(nmis))
         avg_scores.append(np.mean(scores))
@@ -550,12 +493,6 @@ def evaluate_single_run(log_path, **kwargs):
         kwargs['log'] = log_path
         visualize_many_temporal_clusterings(list([list(t.long().numpy()) for t in z_data]), list([list(t.long().numpy()) for t in z]), **kwargs)
 
-    # print (p_data)
-    # print (w_data)
-    # print ("Avg score (per traj nmi, per traj, nmi, combined, munkres)", np.mean(avg_nmis), np.mean(avg_scores),
-    #        np.mean(avg_combined_nmis), np.mean(avg_combined_scores), np.mean(avg_munkres))
-
-    # print (kwargs['dataset']['means_data'])
     return np.mean(avg_nmis), np.mean(avg_scores), np.mean(avg_combined_nmis), np.mean(avg_combined_scores), np.mean(avg_munkres), \
            np.mean(avg_lass), np.mean(avg_sss), np.mean(avg_rss)
 
