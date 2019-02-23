@@ -57,5 +57,25 @@ should reproduce those shown in `scripts/eval_inria_background.sh`. Running on o
 which will reproduce all the plots and visualizations from the first sequence of the Bees dataset in ``plots/``. 
 Run ``python evaluate.py`` to see a list of the available datasets.
 
+#### Using Prism with your data
+
+To run procedure extraction for your own dataset you need to,  
+
+(1) Implement a data loader in ``datasets.py``
+
+Data loaders need to return the time-series and ground-truth labels for evaluation (see `load_inria_dataset()` 
+for an example). Call the data loader from `load_dataset()`. You can also pass custom options for different featurizations 
+or custom settings using the `data_config` and different ground-truth labelings using the `eval_config` argument. Load 
+the data in a new `if` condition (make sure to give your dataset a unique id) and specify all the variables required 
+in `load_dataset()` (see examples for the INRIA/JIGSAWS/Breakfast/Bees datasets for clarification).
+
+(2) Run Prism!
+
+Add a script to `scripts/` to run Prism. Examples on how to run Prism can be found in `scripts/run_<dataset>.sh`.
+
+(3) Evaluate
+
+Add a script to `scripts/` to evaluate Prism. Examples on how to evaluate Prism can be found in `scripts/eval_<dataset>.sh`.
+
 
 Please contact Karan Goel ``kgoel <at> cs <dot> stanford <dot> edu`` for questions!
