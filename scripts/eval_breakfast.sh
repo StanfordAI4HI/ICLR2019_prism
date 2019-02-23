@@ -19,49 +19,108 @@ dataset="/next/u/kgoel/bayesian-activity/datasets/breakfast_data/"
 # Cereals, 184 sequences
 OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '0-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
 --log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
-#0.28497637534033937 0.480306249566571 0.10073767773459275 0.4357928258020018 0.3665996068909701
 
 # Coffee, 167 sequences
 OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '1-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
 --log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
-#0.3381145458839744 0.4566800029072704 0.14574878797012708 0.445941663202004 0.3026303184713376
 
-# Fried Egg, 173 sequences
-OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '2-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
---log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
-#0.39479915750725014 0.4739536978725297 0.17315627182302057 0.5172121593122903 0.29225883764951677
-
-# Juice, 162 sequences
-OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '3-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
---log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
-#0.5342682429463863 0.5963174687601052 0.30809386992317017 0.5714961765576507 0.4356760917789623
-
+## Fried Egg, 173 sequences
+#OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '2-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
+#--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
+#
+## Juice, 162 sequences
+#OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '3-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
+#--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
+#
 # Milk, 187 sequences
 OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '4-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
 --log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
-#0.37176698781843426 0.5285727297742349 0.1534330753604067 0.45967545179721947 0.3931087884487594
 
-# Pancakes, 157 sequences
-OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '5-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
---log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
-#0.5610438590817549 0.5830664907785441 0.34509684115551786 0.5976511482736704 0.3376616642589957
+## Pancakes, 157 sequences
+#OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '5-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
+#--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
+#
+## Salad, 163 sequences
+#OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '6-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
+#--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
+#
+## Sandwiches, 169 sequences
+#OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '7-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
+#--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
+#
+## Scrambled Eggs, 166 sequences
+#OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '8-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
+#--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
+#
+## Tea, 184 sequences
+#OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '9-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
+#--log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
 
-# Salad, 163 sequences
-OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '6-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
---log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
-# 0.35023429855805405 0.4707324883848886 0.11000914690885222 0.38604207643190247 0.28794793691903464
 
-# Sandwiches, 169 sequences
-OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '7-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
---log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
-# 0.4498513494205434 0.5482078538867354 0.21421397404755407 0.4815645543790069 0.34678777188982685
+# Results of the evaluation for logged data when running
+# ./eval_surgery.sh 10 0
+# should be
 
-# Scrambled Eggs, 166 sequences
-OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '8-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
---log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
-# 0.5608455562352457 0.5878544915465737 0.24948339115415025 0.4777314037829726 0.29361916684053135
+# Fried Egg
+# Average performance for d_8_2-0-5-1__p_ind__a_tied-across_0__seed_10__km_9__sm_20__gamma_1.00__delta_0.10__gmm_0 (across all specified seeds).
+# NMI: 0.17
+# Munkres: 0.29
+# RSS: 0.38
+# LASS: 0.87
+# SSS: 0.82
+# TSS: 0.51
 
-# Tea, 184 sequences
-OMP_NUM_THREADS=1 python ../gibbs.py evaluate 8 $dataset --data_config '9-0-5-1' --eval_config '1' --seed $seed --num_seeds $1 \
---log $log --p_type ind --a_type tied-across --s_model 20 --k_model -1 --gamma 1.0 --delta 0.1 &
-# 0.3511473296261841 0.49435284184898753 0.0965746286713798 0.38859552512694145 0.2915826803873725
+# Juice
+# Average performance for d_8_3-0-5-1__p_ind__a_tied-across_0__seed_10__km_9__sm_20__gamma_1.00__delta_0.10__gmm_0 (across all specified seeds).
+# NMI: 0.31
+# Munkres: 0.43
+# RSS: 0.42
+# LASS: 0.91
+# SSS: 0.86
+# TSS: 0.57
+
+# Pancakes
+# Average performance for d_8_5-0-5-1__p_ind__a_tied-across_0__seed_10__km_14__sm_20__gamma_1.00__delta_0.10__gmm_0 (across all specified seeds).
+# NMI: 0.35
+# Munkres: 0.34
+# RSS: 0.49
+# LASS: 0.89
+# SSS: 0.84
+# TSS: 0.62
+
+# Salad
+# Average performance for d_8_6-0-5-1__p_ind__a_tied-across_0__seed_10__km_8__sm_20__gamma_1.00__delta_0.10__gmm_0 (across all specified seeds).
+# NMI: 0.11
+# Munkres: 0.29
+# RSS: 0.25
+# LASS: 0.90
+# SSS: 0.86
+# TSS: 0.38
+
+# Sandwiches
+# Average performance for d_8_7-0-5-1__p_ind__a_tied-across_0__seed_10__km_9__sm_20__gamma_1.00__delta_0.10__gmm_0 (across all specified seeds).
+# NMI: 0.21
+# Munkres: 0.35
+# RSS: 0.35
+# LASS: 0.90
+# SSS: 0.85
+# TSS: 0.49
+
+# Scrambled Eggs
+# Average performance for d_8_8-0-5-1__p_ind__a_tied-across_0__seed_10__km_12__sm_20__gamma_1.00__delta_0.10__gmm_0 (across all specified seeds).
+# NMI: 0.25
+# Munkres: 0.29
+# RSS: 0.33
+# LASS: 0.91
+# SSS: 0.86
+# TSS: 0.47
+
+# Tea
+# Average performance for d_8_9-0-5-1__p_ind__a_tied-across_0__seed_10__km_7__sm_20__gamma_1.00__delta_0.10__gmm_0 (across all specified seeds).
+# NMI: 0.10
+# Munkres: 0.29
+# RSS: 0.26
+# LASS: 0.89
+# SSS: 0.84
+# TSS: 0.40
+
