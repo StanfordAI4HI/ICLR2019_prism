@@ -546,9 +546,7 @@ def load_dataset(**kwargs):
     # Data configs
     # num kinematic features to keep - skip rate - apply PCA - demos start pt - demos end pt
     # - stack config -
-    # A default config for which testing is done '38-3-1-10-20-1'
-    # Config from Berkeley paper? '38-1-0-10-20-2'
-    # We are improving for '38-3-1-10-20-3'
+    # A default config for which testing is done '38-3-1-10-20-3'
     elif dataset in [1001, 1010, 1011, 1100, 1101, 1110, 1111,
                      2001, 2010, 2011, 2100, 2101, 2110, 2111]:
         data_config = [int(e) for e in data_config]
