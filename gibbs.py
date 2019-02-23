@@ -442,7 +442,10 @@ def evaluate_single_run(log_path, **kwargs):
     masks = kwargs['dataset']['masks_data']
     metadata = kwargs['dataset']['meta_data']
 
-    history = pickle.load(open(log_path, 'rb'))
+    try:
+        history = pickle.load(open(log_path, 'rb'))
+    except EOFError:
+        return None
     avg_scores = []
     avg_combined_scores = []
     avg_combined_nmis = []
