@@ -11,7 +11,7 @@ seed=$(($2+1))
 log="/next/u/kgoel/bayesian-activity/logs/sim/"
 
 # Path to dataset is empty, since we're using simulated data
-dataset=""
+dataset="-"
 
 # Run evaluation for the simulated dataset
 OMP_NUM_THREADS=1 python ../gibbs.py evaluate 6 $dataset --seed $seed --num_seeds $1 --d 2 \
