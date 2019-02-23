@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Evaluate Prism on Bees dataset
+
 # Usage
 # > ./eval_bees.sh 10 0
 # which runs evaluation for results from Prism from 10 random seeds, with values 1,...,10

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Evaluate Prism on JIGSAWS surgical dataset
+
 # Usage
 # > ./eval_inria.sh 10 0
 # which runs evaluation for results from Prism from 10 random seeds, with values 1,...,10
@@ -16,7 +18,7 @@ dataset="/next/u/kgoel/bayesian-activity/datasets/surgery_dataset/"
 # Run evaluation
 # Note: run as background processes by adding & at the end of each command
 
-# Evaluation on suturing on expert demonstrations with 10 expert demonstrations with 5 each from 2 experts
+# Evaluation on suturing with 10 expert demonstrations with 5 each from 2 experts
 OMP_NUM_THREADS=1 python ../gibbs.py evaluate 1001 $dataset --data_config '38-3-1-10-20-3' --seed $seed --num_seeds $1 \
 --log $log --p_type ind --a_type tied-across --s_model 25 --k_model -1 --gamma 1.0 --delta 0.1 &
 
