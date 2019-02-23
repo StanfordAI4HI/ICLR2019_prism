@@ -38,7 +38,6 @@ def evaluation(**kwargs):
 
 
 def evaluate_single_run(log_path, **kwargs):
-    print(log_path)
     if not os.path.exists(log_path):
         return None
 
