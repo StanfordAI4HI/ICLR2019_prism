@@ -238,98 +238,41 @@ sleep 2
 
 
 # Varying k
-#
-#OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
-#--log /next/u/kgoel/bayesian-activity/logs/  \
-#--p_type ind --a_type tied-across --s_model 25 --k_model 3 --gamma 1.0 --delta 0.1
-#sleep 2
-##0.37806452918037114 0.6249736371120844 0.3442596731592489 0.637444138889678 0.48208368026644466 0.5338343268296526 0.8644846636621575 0.8022417127244251
-#
-#OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
-#--log /next/u/kgoel/bayesian-activity/logs/  \
-#--p_type ind --a_type tied-across --s_model 25 --k_model 5 --gamma 1.0 --delta 0.1
-#sleep 2
-##0.5145014015542342 0.6727799280525989 0.48415532731380606 0.6934073958496378 0.5458742714404663 0.6030475827840655 0.8747301311560036 0.8211928634676191
-#
-#
-#OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
-#--log /next/u/kgoel/bayesian-activity/logs/  \
-#--p_type ind --a_type tied-across --s_model 25 --k_model 7 --gamma 1.0 --delta 0.1
-#sleep 2
-#
-##0.5337131764920791 0.644406498152797 0.49684906505516924 0.6582450249273732 0.4954142381348875 0.5537135316824663 0.8757990587251673 0.8261116337360767
-#
-#OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
-#--log /next/u/kgoel/bayesian-activity/logs/  \
-#--p_type ind --a_type tied-across --s_model 25 --k_model -1 --gamma 1.0 --delta 0.1
-#sleep 2
-#0.5522902700631157 0.6124485452710551 0.5154212659964093 0.6202743437205023 0.4640861781848459 0.5038369528111131 0.873871632855252 0.8262168402447603
-#
-#OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
-#--log /next/u/kgoel/bayesian-activity/logs/  \
-#--p_type ind --a_type tied-across --s_model 25 --k_model 13 --gamma 1.0 --delta 0.1
-#sleep 2
-##0.5834163882031952 0.5959231819273885 0.5490380555900669 0.6032681359658805 0.4426124063280599 0.4742385966755074 0.8801295272743268 0.8370271332174966
-#
-#OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
-#--log /next/u/kgoel/bayesian-activity/logs/  \
-#--p_type ind --a_type tied-across --s_model 25 --k_model 15 --gamma 1.0 --delta 0.1
-#sleep 2
-##0.564814489947948 0.5560324515818429 0.5234799955599894 0.5511720911116802 0.39745420482930893 0.41348520259446964 0.8766466275047389 0.8332102264068002
 
-# Varying gamma
-#OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
-#--log /next/u/kgoel/bayesian-activity/logs/  \
-#--p_type ind --a_type tied-across --s_model 25 --k_model -1 --gamma 0.01 --delta 0.1
-#sleep 2
-#
-#OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
-#--log /next/u/kgoel/bayesian-activity/logs/  \
-#--p_type ind --a_type tied-across --s_model 25 --k_model -1 --gamma 0.1 --delta 0.1
-#sleep 2
-#
-#OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
-#--log /next/u/kgoel/bayesian-activity/logs/  \
-#--p_type ind --a_type tied-across --s_model 25 --k_model -1 --gamma 1.0 --delta 0.1
-#sleep 2
-#
-#OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
-#--log /next/u/kgoel/bayesian-activity/logs/  \
-#--p_type ind --a_type tied-across --s_model 25 --k_model -1 --gamma 10.0 --delta 0.1
-#sleep 2
-#
-#OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
-#--log /next/u/kgoel/bayesian-activity/logs/  \
-#--p_type ind --a_type tied-across --s_model 25 --k_model -1 --gamma 100.0 --delta 0.1
-#sleep 2
+OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
+--log /next/u/kgoel/bayesian-activity/logs/  \
+--p_type ind --a_type tied-across --s_model 25 --k_model 3 --gamma 1.0 --delta 0.1
+sleep 2
+#0.37806452918037114 0.6249736371120844 0.3442596731592489 0.637444138889678 0.48208368026644466 0.5338343268296526 0.8644846636621575 0.8022417127244251
+
+OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
+--log /next/u/kgoel/bayesian-activity/logs/  \
+--p_type ind --a_type tied-across --s_model 25 --k_model 5 --gamma 1.0 --delta 0.1
+sleep 2
+#0.5145014015542342 0.6727799280525989 0.48415532731380606 0.6934073958496378 0.5458742714404663 0.6030475827840655 0.8747301311560036 0.8211928634676191
 
 
-#OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
-#--log /next/u/kgoel/bayesian-activity/logs/  \
-#--p_type ind --a_type tied-across --s_model 25 --k_model -1 --gamma 1.0 --delta 0.01
-#sleep 2
-##0.5513941326848545 0.5978783868978326 0.5123585071181704 0.6064631450516145 0.4741798501248959 0.4858992673511725 0.8741810896591625 0.8268778184848917
-#
-#OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
-#--log /next/u/kgoel/bayesian-activity/logs/  \
-#--p_type ind --a_type tied-across --s_model 25 --k_model -1 --gamma 1.0 --delta 0.1
-#sleep 2
-##0.5522902700631157 0.6124485452710551 0.5154212659964093 0.6202743437205023 0.4640861781848459 0.5038369528111131 0.873871632855252 0.8262168402447603
-#
-#OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
-#--log /next/u/kgoel/bayesian-activity/logs/  \
-#--p_type ind --a_type tied-across --s_model 25 --k_model -1 --gamma 1.0 --delta 1.0
-#sleep 2
-##0.5226552238178972 0.5674831614873316 0.48284868509760087 0.5697926822997916 0.4399771024146544 0.4428730863160107 0.8715662771580929 0.8234330480032757
-#
-#OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
-#--log /next/u/kgoel/bayesian-activity/logs/  \
-#--p_type ind --a_type tied-across --s_model 25 --k_model -1 --gamma 1.0 --delta 10.0
-#sleep 2
-##0.54765511843056 0.6012822616598115 0.5107052777934411 0.6135990866006759 0.46594088259783517 0.49648354822614954 0.8721924521626013 0.823565720566576
-#
-#OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
-#--log /next/u/kgoel/bayesian-activity/logs/  \
-#--p_type ind --a_type tied-across --s_model 25 --k_model -1 --gamma 1.0 --delta 100.0
-#sleep 2
-##0.5418396219147038 0.5862250238991887 0.5042064891553775 0.5936206325194355 0.4548501248959201 0.46762401197447556 0.8714024386341735 0.8231077040563741
+OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
+--log /next/u/kgoel/bayesian-activity/logs/  \
+--p_type ind --a_type tied-across --s_model 25 --k_model 7 --gamma 1.0 --delta 0.1
+sleep 2
+
+#0.5337131764920791 0.644406498152797 0.49684906505516924 0.6582450249273732 0.4954142381348875 0.5537135316824663 0.8757990587251673 0.8261116337360767
+
+OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
+--log /next/u/kgoel/bayesian-activity/logs/  \
+--p_type ind --a_type tied-across --s_model 25 --k_model -1 --gamma 1.0 --delta 0.1
+sleep 2
+# 0.5522902700631157 0.6124485452710551 0.5154212659964093 0.6202743437205023 0.4640861781848459 0.5038369528111131 0.873871632855252 0.8262168402447603
+
+OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
+--log /next/u/kgoel/bayesian-activity/logs/  \
+--p_type ind --a_type tied-across --s_model 25 --k_model 13 --gamma 1.0 --delta 0.1
+sleep 2
+#0.5834163882031952 0.5959231819273885 0.5490380555900669 0.6032681359658805 0.4426124063280599 0.4742385966755074 0.8801295272743268 0.8370271332174966
+
+OMP_NUM_THREADS=1 python gibbs.py evaluate 1001 --data_config '38-3-1-15-20-3' --seed $seed --num_seeds $1 \
+--log /next/u/kgoel/bayesian-activity/logs/  \
+--p_type ind --a_type tied-across --s_model 25 --k_model 15 --gamma 1.0 --delta 0.1
+sleep 2
+#0.564814489947948 0.5560324515818429 0.5234799955599894 0.5511720911116802 0.39745420482930893 0.41348520259446964 0.8766466275047389 0.8332102264068002

@@ -420,13 +420,12 @@ def evaluation(**kwargs):
             seeds_mean_lass.append(mean_lass)
             seeds_mean_sss.append(mean_sss)
 
-    print ("%s Averaged performance (mean nmi, mean score, nmi, score, munkres, rss, lass, sss)" % (log_path.split("/")[-1]), np.mean(seeds_mean_avg_nmi),
+    print("%s Averaged performance (mean nmi, mean score, nmi, score, munkres, rss, lass, sss)" % (log_path.split("/")[-1]), np.mean(seeds_mean_avg_nmi),
            np.mean(seeds_mean_avg_score), np.mean(seeds_mean_nmi), np.mean(seeds_mean_score), np.mean(seeds_mean_munkres),
            np.mean(seeds_mean_rss), np.mean(seeds_mean_lass), np.mean(seeds_mean_sss))
 
 
 def evaluate_single_run(log_path, **kwargs):
-    print (log_path)
     if not os.path.exists(log_path):
         return None
 
@@ -452,7 +451,6 @@ def evaluate_single_run(log_path, **kwargs):
     avg_sss = []
     for i, (a, p, rho, m, s) in enumerate(list(zip(*history))[-50::5]):
         w = torch.sort(a)[0]
-
         num_segs = 0
         prev_p = p[0]
         for token in p:
@@ -460,7 +458,6 @@ def evaluate_single_run(log_path, **kwargs):
                 continue
             prev_p = token
             num_segs += 1
-        print (num_segs)
         z = p.unsqueeze(0)[:, w][0]
         z = [e[masks[j] == 1] for j, e in enumerate(z)]
         scores = []
@@ -506,6 +503,7 @@ if __name__ == '__main__':
     argparse = argparse.ArgumentParser()
     argparse.add_argument('mode', choices=['train', 'evaluate'], type=str)
     argparse.add_argument('dataset', type=int)
+    argparse.add_argument('dataset_path', type=str)
 
     argparse.add_argument('--data_config', type=str, default='')
     argparse.add_argument('--eval_config', type=str, default='')
@@ -536,9 +534,7 @@ if __name__ == '__main__':
     argparse.add_argument('--n_iters', default=201, type=int)
 
     args = argparse.parse_args()
-    print (args.log)
     kwargs = vars(args)
-    print(kwargs)
 
     # Use a fixed manual seed for generating the data
     torch.manual_seed(0)
@@ -554,8 +550,6 @@ if __name__ == '__main__':
         kwargs['s_model'] = kwargs['dataset']['s_data']
     elif kwargs['s_model'] == -2:
         kwargs['s_model'] = kwargs['dataset']['x_data'].shape[1]
-
-    print (kwargs['dataset']['s_data'])
 
     # Now set the manual seed for Gibbs sampling
     torch.manual_seed(args.seed)

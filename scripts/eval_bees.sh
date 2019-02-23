@@ -1,27 +1,19 @@
 #!/usr/bin/env bash
 
-#for ((j=71; j<=76; j++)); do
-#   seed=$(($2+1))
-#   OMP_NUM_THREADS=1 python gibbs.py evaluate $j --seed $seed --num_seeds $1 \
-#   --log /next/u/kgoel/bayesian-activity/final/bees/  \
-#   --p_type ind --a_type tied-across --s_model 100 --k_model -1 --gamma 1.0 --delta 1.0
-#   sleep 2
-#done
+# Usage
+# > ./eval_bees.sh 10 0
+# which runs evaluation for results from Prism from 10 random seeds, with values 1,...,10
 
-#for ((j=71; j<=76; j++)); do
-#   seed=$(($2+1))
-#   OMP_NUM_THREADS=1 python gibbs.py evaluate $j --seed $seed --num_seeds $1 \
-#   --log /next/u/kgoel/bayesian-activity/final/bees/  \
-#   --p_type ind --a_type tied-across --s_model 100 --k_model -1 --gamma 1.0 --delta 1.0 --a_bound 5
-#   sleep 2
-#done
+# Sets the start seed
+seed=$(($2+1))
 
+# Path to where the logs are
+log="/next/u/kgoel/bayesian-activity/logs/bees/"
+
+# Loops over and runs evaluation for all 6 Bees sequences
 for ((j=71; j<=76; j++)); do
-   seed=$(($2+1))
    OMP_NUM_THREADS=1 python gibbs.py evaluate $j --seed $seed --num_seeds $1 \
-   --log /next/u/kgoel/bayesian-activity/final/bees/  \
-   --p_type ind --a_type tied-across --s_model 200 --k_model -1 --gamma 1.0 --delta 1.0
-   sleep 5
+   --log $log --p_type ind --a_type tied-across --s_model 200 --k_model -1 --gamma 1.0 --delta 1.0
 done
 
 # TSS, NMI

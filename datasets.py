@@ -18,12 +18,8 @@ import matplotlib.pyplot as plt
 
 
 def load_inria_dataset(task_type='0_1_2_3_4', remove_background=False, path=None):
-    # path = '/users/krandiash/Downloads/VISION/'
-    path = '/next/u/kgoel/bayesian-activity/datasets/inria_dataset/VISION/'
-
     tasks = [['changing_tire', 'coffee', 'cpr', 'jump_car', 'repot'][int(i)] for i in task_type.split("_")]
     backgrounds = [[11, 10, 7, 12, 8][int(i)] for i in task_type.split("_")]
-
 
     def load_features_and_gt_labels(path, background):
         mat_dict = loadmat(path)
@@ -39,7 +35,6 @@ def load_inria_dataset(task_type='0_1_2_3_4', remove_background=False, path=None
                 all_time_series.append(x[0])
                 all_gt_labels.append(np.where(y[0] == 1)[1][:len(x[0])])
 
-            print (len(all_time_series[-1]), len(all_gt_labels[-1]))
 
             all_names.append(meta[1][0])
 
@@ -146,7 +141,6 @@ def load_breakfast_dataset(task_type='0_1_2_3_4_5_6_7_8_9',
     for i in range(len(all_gt_labels)):
         all_gt_labels[i] = le.transform(all_gt_labels[i])
 
-    print (len(all_time_series), len(all_gt_labels), len(all_names))
     return all_time_series, all_gt_labels, all_names
 
 
@@ -288,6 +282,7 @@ def gaussian_dataset(means, stds, d, n, k, p, w):
 def load_dataset(**kwargs):
     # Dataset being used
     dataset = kwargs['dataset']
+    path = kwargs['dataset_path']
     data_config = kwargs['data_config'].split("-")
     eval_config = kwargs['eval_config'].split("-")
 
@@ -616,7 +611,6 @@ def load_dataset(**kwargs):
                     pca = PCA(n_components=n_pca_components[i])
                     pca.fit(np.concatenate(x_data_stack))
                     x_data_stack = [pca.transform(e) for e in x_data_stack]
-                    print ("PCA", stack_size, n_pca_components[i], sum(pca.explained_variance_ratio_), pca.explained_variance_ratio_)
 
                 x_data_stacks.append(x_data_stack)
 
@@ -628,7 +622,7 @@ def load_dataset(**kwargs):
         # pca = PCA(n_components=20)
         # pca.fit(np.concatenate(x_data))
         # x_data = [pca.transform(e) for e in x_data]
-        # print ("PCA", sum(pca.explained_variance_ratio_), pca.explained_variance_ratio_)
+
 
         # Scale the data using statistics computed over the entire dataset
         scaler = StandardScaler()
@@ -711,7 +705,6 @@ def load_dataset(**kwargs):
         # First reduce the number of components per time-step using PCA (this is okay)
         pca = PCA(n_components=64)
         pca.fit(np.concatenate(x_data))
-        print (np.sum(pca.explained_variance_ratio_))
         x_data = [pca.transform(e) for e in x_data]
 
         # Sort all the sequences in descending order of lengths
