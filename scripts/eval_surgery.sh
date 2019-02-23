@@ -18,7 +18,7 @@ dataset="/next/u/kgoel/bayesian-activity/datasets/surgery_dataset/"
 
 # Evaluation on suturing on expert demonstrations with 10 expert demonstrations with 5 each from 2 experts
 OMP_NUM_THREADS=1 python ../gibbs.py evaluate 1001 $dataset --data_config '38-3-1-10-20-3' --seed $seed --num_seeds $1 \
---log $log --p_type ind --a_type tied-across --s_model 25 --k_model -1 --gamma 1.0 --delta 1.0
+--log $log --p_type ind --a_type tied-across --s_model 25 --k_model -1 --gamma 1.0 --delta 0.1
 #0.46466696533550894 0.48880683666830366 0.32869413468174513 0.44700555159625177
 
 # Evaluation on needle passing with 10 expert demonstrations with 5 each from 2 experts

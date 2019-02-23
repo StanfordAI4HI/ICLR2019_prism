@@ -15,7 +15,7 @@ dataset="/next/u/kgoel/bayesian-activity/datasets/bees/data/"
 
 # Loops over and runs evaluation for all 6 Bees sequences
 for ((j=71; j<=76; j++)); do
-   OMP_NUM_THREADS=1 python gibbs.py evaluate $j --seed $seed --num_seeds $1 \
+   OMP_NUM_THREADS=1 python gibbs.py evaluate $j $dataset --seed $seed --num_seeds $1 \
    --log $log --p_type ind --a_type tied-across --s_model 200 --k_model -1 --gamma 1.0 --delta 1.0
 done
 

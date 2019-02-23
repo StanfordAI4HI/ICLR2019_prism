@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Evaluate Prism on INRIA dataset after removing background frames
+
 # Usage
 # > ./eval_inria.sh 10 0
 # which runs evaluation for results from Prism from 10 random seeds, with values 1,...,10
