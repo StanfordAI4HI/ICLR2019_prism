@@ -7,10 +7,7 @@
 # which runs inference with baselines for 10 random seeds, with values 1,...,10
 
 # Path to where the logs are
-gmm_log="/next/u/kgoel/bayesian-activity/logs/gmm/surgery/"
-hmm_det_log="/next/u/kgoel/bayesian-activity/logs/hmm_det/surgery/"
-hmm_stoch_log="/next/u/kgoel/bayesian-activity/logs/hmm_stoch/surgery/"
-hmm_vstoch_log="/next/u/kgoel/bayesian-activity/logs/hmm_vstoch/surgery/"
+log="/next/u/kgoel/bayesian-activity/logs/baselines/"
 
 # Path to where the dataset is
 dataset="/next/u/kgoel/bayesian-activity/datasets/surgery_dataset/"
@@ -20,25 +17,25 @@ dataset="/next/u/kgoel/bayesian-activity/datasets/surgery_dataset/"
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
    OMP_NUM_THREADS=1 python baselines.py train 1001 0 $dataset --data_config '38-3-1-10-20-3' --seed $seed \
-   --log $gmm_log --k_model -1 &
+   --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
    OMP_NUM_THREADS=1 python baselines.py train 1001 1 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-   --log $hmm_det_log --k_model -1 &
+   --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
    OMP_NUM_THREADS=1 python baselines.py train 1001 2 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-   --log $hmm_stoch_log --k_model -1 &
+   --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
    OMP_NUM_THREADS=1 python baselines.py train 1001 3 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-   --log $hmm_vstoch_log --k_model -1 &
+   --log $log --k_model -1 &
 done
 
 
@@ -46,25 +43,25 @@ done
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
    OMP_NUM_THREADS=1 python baselines.py train 1010 0 $dataset --data_config '38-3-1-10-20-3' --seed $seed \
-   --log $gmm_log --k_model -1 &
+   --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
    OMP_NUM_THREADS=1 python baselines.py train 1010 1 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-   --log $hmm_det_log --k_model -1 &
+   --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
    OMP_NUM_THREADS=1 python baselines.py train 1010 2 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-   --log $hmm_stoch_log --k_model -1 &
+   --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
    OMP_NUM_THREADS=1 python baselines.py train 1010 3 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-   --log $hmm_vstoch_log --k_model -1 &
+   --log $log --k_model -1 &
 done
 
 
@@ -72,25 +69,25 @@ done
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
    OMP_NUM_THREADS=1 python baselines.py train 1100 0 $dataset --data_config '38-3-1-10-20-3' --seed $seed \
-   --log $gmm_log --k_model -1 &
+   --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
    OMP_NUM_THREADS=1 python baselines.py train 1100 1 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-   --log $hmm_det_log --k_model -1 &
+   --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
    OMP_NUM_THREADS=1 python baselines.py train 1100 2 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-   --log $hmm_stoch_log --k_model -1 &
+   --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
    OMP_NUM_THREADS=1 python baselines.py train 1100 3 $dataset --data_config '38-3-1-10-20-3' --n_iters 2000 --seed $seed \
-   --log $hmm_vstoch_log --k_model -1 &
+   --log $log --k_model -1 &
 done
 
 
@@ -98,23 +95,23 @@ done
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
    OMP_NUM_THREADS=1 python baselines.py train 1001 0 $dataset --data_config '38-3-1-15-20-3' --seed $seed \
-   --log $gmm_log --k_model -1 &
+   --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
    OMP_NUM_THREADS=1 python baselines.py train 1001 1 $dataset --data_config '38-3-1-15-20-3' --n_iters 2000 --seed $seed \
-   --log $hmm_det_log --k_model -1 &
+   --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
    OMP_NUM_THREADS=1 python baselines.py train 1001 2 $dataset --data_config '38-3-1-15-20-3' --n_iters 2000 --seed $seed \
-   --log $hmm_stoch_log --k_model -1 &
+   --log $log --k_model -1 &
 done
 
 for ((i=1; i<=$1; i++)); do
    seed=$(($2+$i))
    OMP_NUM_THREADS=1 python baselines.py train 1001 3 $dataset --data_config '38-3-1-15-20-3' --n_iters 2000 --seed $seed \
-   --log $hmm_vstoch_log --k_model -1 &
+   --log $log --k_model -1 &
 done

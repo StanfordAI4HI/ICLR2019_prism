@@ -40,6 +40,9 @@ Then untar and move the label data so that all of them can be accessed inside
  
 - _JIGSAWS surgical and Bees [datasets](https://drive.google.com/drive/folders/1wq-08JPDBhWm7og4Ip-khY3L1l3WpauV?usp=sharing)_
  
+ Unzip and pass in the dataset path as ``<path_before>/surgical_dataset/`` for the JIGSAWS dataset and 
+ ``<path_before>/bees/data/`` for the bees dataset.
+
 
 Please cite the datasets appropriately.
 
