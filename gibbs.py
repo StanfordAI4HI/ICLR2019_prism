@@ -403,16 +403,14 @@ def run_gibbs(**kwargs):
 def evaluation(**kwargs):
     base_seed = kwargs['seed']
     num_seeds = kwargs['num_seeds']
-    seeds_mean_avg_nmi, seeds_mean_avg_score, seeds_mean_nmi, seeds_mean_score = [], [], [], []
+    seeds_mean_nmi, seeds_mean_score = [], [], [], []
     seeds_mean_munkres, seeds_mean_rss, seeds_mean_sss, seeds_mean_lass = [], [], [], []
     for seed in tqdm(range(base_seed, base_seed + num_seeds)):
         kwargs['seed'] = seed
         log_path = get_log_name(kwargs['log'], **kwargs)
         result = evaluate_single_run(log_path, **kwargs)
         if result is not None:
-            mean_avg_nmi, mean_avg_score, mean_nmi, mean_score, mean_munkres, mean_lass, mean_sss, mean_rss = result
-            seeds_mean_avg_nmi.append(mean_avg_nmi)
-            seeds_mean_avg_score.append(mean_avg_score)
+            _, _, mean_nmi, mean_score, mean_munkres, mean_lass, mean_sss, mean_rss = result
             seeds_mean_nmi.append(mean_nmi)
             seeds_mean_score.append(mean_score)
             seeds_mean_munkres.append(mean_munkres)
@@ -420,9 +418,13 @@ def evaluation(**kwargs):
             seeds_mean_lass.append(mean_lass)
             seeds_mean_sss.append(mean_sss)
 
-    print("%s Averaged performance (mean nmi, mean score, nmi, score, munkres, rss, lass, sss)" % (log_path.split("/")[-1]), np.mean(seeds_mean_avg_nmi),
-           np.mean(seeds_mean_avg_score), np.mean(seeds_mean_nmi), np.mean(seeds_mean_score), np.mean(seeds_mean_munkres),
-           np.mean(seeds_mean_rss), np.mean(seeds_mean_lass), np.mean(seeds_mean_sss))
+    print("Average performance for %s." % (log_path.split("/")[-1]))
+    print("NMI: %2.2f" % (np.mean(seeds_mean_nmi)))
+    print("Munkres: %2.2f" % (np.mean(seeds_mean_munkres)))
+    print("RSS: %2.2f" % (np.mean(seeds_mean_rss)))
+    print("LASS: %2.2f" % (np.mean(seeds_mean_lass)))
+    print("SSS: %2.2f" % (np.mean(seeds_mean_sss)))
+    print("TSS: %2.2f" % (np.mean(seeds_mean_score)))
 
 
 def evaluate_single_run(log_path, **kwargs):
@@ -449,6 +451,7 @@ def evaluate_single_run(log_path, **kwargs):
     avg_rss = []
     avg_lass = []
     avg_sss = []
+    # Grab 10 samples from the posterior towards the end
     for i, (a, p, rho, m, s) in enumerate(list(zip(*history))[-50::5]):
         w = torch.sort(a)[0]
         num_segs = 0
